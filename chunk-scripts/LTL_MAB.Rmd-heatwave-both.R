@@ -1,20 +1,20 @@
 
-cumu <- ecodata::heatwave %>% 
+cumu <- ecodata24::heatwave %>% 
   dplyr::filter(Var == "cumulative intensity-Surface") %>% 
   dplyr::mutate(Var = dplyr::recode(Var, "cumulative intensity-Surface" = "Cumulative Intensity (degree C x days)"))
 
-maxin <- ecodata::heatwave %>% 
+maxin <- ecodata24::heatwave %>% 
   dplyr::filter(Var == "maximum intensity-Surface") %>% 
   dplyr::group_by(Time, EPU, Var, Units) %>% 
   dplyr::summarise(Value = max(Value)) %>% 
   dplyr::ungroup() %>% 
   dplyr::mutate(Var = dplyr::recode(Var, "maximum intensity-Surface" = "Maximum Intensity (degree C)"))
 
-cumud <- ecodata::heatwave %>% 
+cumud <- ecodata24::heatwave %>% 
   dplyr::filter(Var == "cumulative intensity-SurfaceDetrended") %>% 
   dplyr::mutate(Var = dplyr::recode(Var, "cumulative intensity-SurfaceDetrended" = "Cumulative Intensity Detrended (degree C x days)"))
 
-maxind <- ecodata::heatwave %>% 
+maxind <- ecodata24::heatwave %>% 
   dplyr::filter(Var == "maximum intensity-SurfaceDetrended") %>% 
   dplyr::group_by(Time, EPU, Var, Units) %>% 
   dplyr::summarise(Value = max(Value)) %>% 
@@ -32,8 +32,8 @@ mab.hw %>%
   ggplot2::ggplot() +
   ggplot2::geom_line(aes(x = Time, y = Value)) +
   ggplot2::geom_point(aes(x = Time, y = Value)) +
-  ecodata::geom_gls(aes(x = Time, y = Value, group = Var)) +
-  #ecodata::geom_lm(aes(x = Time, y = Value, group = Var))+
+  ecodata24::geom_gls(aes(x = Time, y = Value, group = Var)) +
+  #ecodata24::geom_lm(aes(x = Time, y = Value, group = Var))+
   ggplot2::ylab("") +
   ggplot2::xlab(element_blank())+
   ggplot2::ggtitle("Mid-Atlantic Marine Heatwave Intesity") +
@@ -46,7 +46,7 @@ mab.hw %>%
       xmin = x.shade.min , xmax = x.shade.max,
       ymin = -Inf, ymax = Inf) +
   ggplot2::facet_wrap(~Var, scales = "free")+
-  ecodata::theme_ts()+
+  ecodata24::theme_ts()+
   ggplot2::theme(strip.text=element_text(hjust=0,
                                 face = "italic"))+
-  ecodata::theme_title()
+  ecodata24::theme_title()

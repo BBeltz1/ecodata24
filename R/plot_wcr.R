@@ -15,7 +15,7 @@ plot_wcr <- function(shadedRegion = NULL,
                               report="MidAtlantic") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -26,20 +26,20 @@ plot_wcr <- function(shadedRegion = NULL,
     filterEPUs <- c("GB", "GOM")
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
 
   # upper and lower are used to define the two regimes?
   # where year 2000 come from? Estimated change point from publication?
 
-  fix <- ecodata::wcr
+  fix <- ecodata24::wcr
 
   upper.line <- fix |>
     dplyr::filter(Time>2000 & Time <=2017)  |>
     dplyr::mutate(hline = c(mean(Value))) |>
     dplyr::select(Time,hline)
 
-  lower.line<-ecodata::wcr |>
+  lower.line<-ecodata24::wcr |>
     dplyr::filter(Time<2000)  |>
     dplyr::mutate(hline = c(mean(Value))) |>
     dplyr::select(Time,hline)
@@ -60,14 +60,14 @@ plot_wcr <- function(shadedRegion = NULL,
     ggplot2::ggtitle("Warm Core Rings")+
     ggplot2::ylab("Birth frequency")+
     ggplot2::xlab(ggplot2::element_blank())+
-#    ecodata::geom_gls()+
-    ecodata::theme_ts()+
+#    ecodata24::geom_gls()+
+    ecodata24::theme_ts()+
     ggplot2::geom_segment(data = upper.line, ggplot2::aes(x = min(Time), y = hline,
                                                  xend = max(Time), yend = hline, color = "segment") )+
     ggplot2::geom_segment(data = lower.line, ggplot2::aes(x = min(Time), y = hline,
                                                  xend = max(Time), yend = hline, color = "segment") )+
     ggplot2::theme(legend.position = "none")+
-    ecodata::theme_title()
+    ecodata24::theme_title()
 
    # optional code for New England specific (2 panel) formatting
     # if (report == "NewEngland") {

@@ -20,7 +20,7 @@ plot_bennet <- function(shadedRegion = NULL,
                         EPU = "MAB") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -33,14 +33,14 @@ plot_bennet <- function(shadedRegion = NULL,
     filterEPUs <- EPU
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
   #Filter data into two dataframes for plotting
-  indicators <- ecodata::bennet |>
+  indicators <- ecodata24::bennet |>
     dplyr::filter(EPU %in% filterEPUs)
 
   # Define dataset max year for use in unit label
-  bennet_year<-max(ecodata::bennet$Time)
+  bennet_year<-max(ecodata24::bennet$Time)
 
 
   if (varName == "guild") {
@@ -55,7 +55,7 @@ plot_bennet <- function(shadedRegion = NULL,
       dplyr::mutate(component = sum(Value)) |>
       dplyr::ungroup()
 
-    revchange <- ecodata::bennet  |>
+    revchange <- ecodata24::bennet  |>
       dplyr::filter(EPU %in% filterEPUs,
                     #Var %in% c("Total Revenue Change - Bennet"),
                     !Time<1981)
@@ -82,11 +82,11 @@ plot_bennet <- function(shadedRegion = NULL,
       #ggplot2::scale_x_continuous(breaks = seq(1965, 2020, by = 10), expand = c(0.01, 0.01)) +
       #ggplot2::scale_y_continuous(breaks = seq(y.lim[1], y.lim[2], by = 100),
       #                            limits = y.lim, expand = c(0.01, 0.01)) +
-      ecodata::theme_ts() +
+      ecodata24::theme_ts() +
       ggplot2::scale_fill_brewer(palette = "Set1")+
       ggplot2::theme(title = ggplot2::element_text(size = 10))+
-      ecodata::theme_title()+
-      ecodata::theme_facet()
+      ecodata24::theme_title()+
+      ecodata24::theme_facet()
 
 
   } else if (varName == "total") {
@@ -100,7 +100,7 @@ plot_bennet <- function(shadedRegion = NULL,
       dplyr::group_by(Time) |>
       dplyr::mutate(New = sum(Value))
 
-    revchange <- ecodata::bennet |>
+    revchange <- ecodata24::bennet |>
       dplyr::filter(EPU == filterEPUs,
                     Var %in% c("Total Revenue Change - Bennet"),
                     !Time<1981)
@@ -121,10 +121,10 @@ plot_bennet <- function(shadedRegion = NULL,
       ggplot2::scale_x_continuous(breaks = seq(1980, 2020, by = 5), expand = c(0.01, 0.01)) +
       #::scale_y_continuous(breaks = seq(y.lim[1], y.lim[2], by = 100),
       #                            limits = y.lim, expand = c(0.01, 0.01)) +
-      ecodata::theme_ts() +
+      ecodata24::theme_ts() +
       ggplot2::xlab(ggplot2::element_blank())+
       ggplot2::theme(title = ggplot2::element_text(size = 10))+
-      ecodata::theme_title()
+      ecodata24::theme_title()
 
 
   } else if (varName == "total_guild") {
@@ -139,7 +139,7 @@ plot_bennet <- function(shadedRegion = NULL,
       dplyr::group_by(Time, Guild) |>
       dplyr::mutate(New = sum(Value))
 
-    revchange <- ecodata::bennet |>
+    revchange <- ecodata24::bennet |>
       dplyr::filter(EPU == filterEPUs,
                     Var %in% c("Total Revenue Change - Bennet"),
                     !Time<1981)
@@ -164,11 +164,11 @@ plot_bennet <- function(shadedRegion = NULL,
       ggplot2::scale_x_continuous(breaks = seq(1980, 2015, by = 10), expand = c(0.01, 0.01)) +
       #ggplot2::scale_y_continuous(breaks = seq(y.lim[1], y.lim[2], by = 100),
       #                            limits = y.lim, expand = c(0.01, 0.01)) +
-      ecodata::theme_ts() +
+      ecodata24::theme_ts() +
       ggplot2::facet_wrap(~Guild)+
       ggplot2::theme(title = ggplot2::element_text(size = 10),
                      legend.position = "bottom")+
-      ecodata::theme_title()
+      ecodata24::theme_title()
 
   }
 
@@ -202,7 +202,7 @@ attr(plot_bennet,"EPU") <- c("MAB","GB","GOM")
   # Paste commented original plot code chunk for reference
   # MAB version
   # # #Filter data into two dataframes for plotting
-  # indicators <- ecodata::bennet |>
+  # indicators <- ecodata24::bennet |>
   #   dplyr::filter(EPU == epu_abbr)
   #
   # indicators$Var<- gsub( "Predator", "", indicators$Var)
@@ -226,7 +226,7 @@ attr(plot_bennet,"EPU") <- c("MAB","GB","GOM")
   # # dplyr::group_by(Time, Var) |>
   # # dplyr::mutate(component = sum(Value))
   #
-  # revchange <- ecodata::bennet |>
+  # revchange <- ecodata24::bennet |>
   #   dplyr::filter(EPU == "MAB",
   #                 #Var %in% c("Total Revenue Change - Bennet"),
   #                 !Time<1985)
@@ -256,11 +256,11 @@ attr(plot_bennet,"EPU") <- c("MAB","GB","GOM")
   #   #ggplot2::scale_y_continuous(breaks = seq(y.lim[1], y.lim[2], by = 100),
   #   #                            limits = y.lim, expand = c(0.01, 0.01)) +
   #   ggplot2::scale_fill_brewer(palette = "Set1")+
-  #   ecodata::theme_ts() +
+  #   ecodata24::theme_ts() +
   #   ggplot2::xlab(element_blank())+
   #   ggplot2::theme(title = element_text(size = 10))+
-  #   ecodata::theme_title()+
-  #   ecodata::theme_facet()
+  #   ecodata24::theme_title()+
+  #   ecodata24::theme_facet()
   #
   #
 

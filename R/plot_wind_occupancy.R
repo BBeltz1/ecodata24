@@ -15,7 +15,7 @@ plot_wind_occupancy <- function(shadedRegion = NULL,
                               report="MidAtlantic") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -25,9 +25,9 @@ plot_wind_occupancy <- function(shadedRegion = NULL,
     filterEPUs <- c("NE")
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
-  wind1 <- ecodata::wind_occupancy
+  wind1 <- ecodata24::wind_occupancy
   wind1$trend<- ifelse(wind1$Trend == "pos",
                        "$\\nearrow$",
                        ifelse(wind1$Trend == "neg",

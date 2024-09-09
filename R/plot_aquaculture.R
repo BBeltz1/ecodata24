@@ -15,14 +15,14 @@ plot_aquaculture <- function(shadedRegion = NULL,
                               report="MidAtlantic") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
   if (report == "MidAtlantic") {
     filterEPUs <- c("MAB") # no EPU in 2023 dataset
 
-    aqua <- ecodata::aquaculture |>
+    aqua <- ecodata24::aquaculture |>
       dplyr::filter(Region %in% c("MD", "VA", "NJ")) |>
       dplyr::filter(!Value == "NA") |>
       dplyr::mutate(Time = as.integer(Time),
@@ -31,7 +31,7 @@ plot_aquaculture <- function(shadedRegion = NULL,
   } else {
     filterEPUs <- c("GB", "GOM") # no EPU in 2023 dataset
 
-    aqua <- ecodata::aquaculture |>
+    aqua <- ecodata24::aquaculture |>
       dplyr::ungroup() |>
       dplyr::mutate(Region = as.character(Region)) |>
       dplyr::filter(!Region == "VA",
@@ -46,7 +46,7 @@ plot_aquaculture <- function(shadedRegion = NULL,
       dplyr::summarise(Value = sum(Value))
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
   # see above, differs by region
 
@@ -81,8 +81,8 @@ plot_aquaculture <- function(shadedRegion = NULL,
     ggplot2::theme(legend.position="bottom",
                    legend.title = ggplot2::element_blank())+
     ggplot2::scale_x_continuous(breaks=c(2009,2011,2013,2015, 2017, 2019, 2021))+
-    ecodata::theme_ts()+
-    ecodata::theme_title()
+    ecodata24::theme_ts()+
+    ecodata24::theme_title()
 
 
     return(p)
@@ -94,7 +94,7 @@ attr(plot_aquaculture,"report") <- c("MidAtlantic","NewEngland")
 
   # Paste commented original plot code chunk for reference
   # MAB
-  # aqua <- ecodata::aquaculture %>%
+  # aqua <- ecodata24::aquaculture %>%
   #   dplyr::filter(Region %in% c("MD", "VA", "NJ")) %>%
   #   dplyr::filter(!Value == "NA") %>%
   #   dplyr::mutate(Time = as.integer(Time),
@@ -109,8 +109,8 @@ attr(plot_aquaculture,"report") <- c("MidAtlantic","NewEngland")
   #   ggplot2::ylab(expression("Oysters production")) +
   #   ggplot2::xlab(element_blank())+
   #   scale_x_continuous(breaks=c(2009,2011,2013,2015, 2017, 2019))+
-  #   ecodata::theme_ts()+
-  #   ecodata::theme_title()
+  #   ecodata24::theme_ts()+
+  #   ecodata24::theme_title()
   #
   # # aqua %>% group_by(Time) %>% summarise(Value = sum(Value)) %>%
   # #   dplyr::filter(Time %in% c(max(Time), max(Time-1))) %>%
@@ -124,7 +124,7 @@ attr(plot_aquaculture,"report") <- c("MidAtlantic","NewEngland")
   #
   # NE
   #
-  # ecodata::aquaculture %>%
+  # ecodata24::aquaculture %>%
   #   ungroup() %>%
   #   mutate(Region = as.character(Region)) %>%
   #   dplyr::filter(!Region == "VA",
@@ -141,13 +141,13 @@ attr(plot_aquaculture,"report") <- c("MidAtlantic","NewEngland")
   #   #Highlight last ten years
   #   ggplot2::geom_line(aes(x = Time, y = Value), size = lwd) +
   #   ggplot2::geom_point(aes(x = Time, y = Value), size = pcex) +
-  #   #ecodata::geom_lm(aes(x = Time, y = Value))+
+  #   #ecodata24::geom_lm(aes(x = Time, y = Value))+
   #   ggplot2::ggtitle("Total Oyster Production in New England")+
   #   ggplot2::ylab(expression("Production/Acre")) +
   #   ggplot2::xlab("")+
   #   theme(legend.position="bottom",
   #         legend.title = element_blank())+
   #   scale_x_continuous(breaks=c(2009,2011,2013,2015, 2017, 2019, 2021))+
-  #   ecodata::theme_ts()+
-  #   ecodata::theme_title()
+  #   ecodata24::theme_ts()+
+  #   ecodata24::theme_title()
 

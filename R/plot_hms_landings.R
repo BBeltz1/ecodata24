@@ -18,7 +18,7 @@ plot_hms_landings <- function(shadedRegion = NULL,
                               varName="Landings") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -28,10 +28,10 @@ plot_hms_landings <- function(shadedRegion = NULL,
     filterEPUs <- c("NE")
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
 
-  apex<-ecodata::hms_landings |>
+  apex<-ecodata24::hms_landings |>
     dplyr::filter(stringr::str_detect(Var, varName)) |>
     tidyr::separate(Var, c("Var", "trash"), sep = "_") |>
     dplyr::filter(EPU %in% filterEPUs) |>
@@ -60,7 +60,7 @@ plot_hms_landings <- function(shadedRegion = NULL,
                         size = setup$hline.size,
                         alpha = setup$hline.alpha,
                         linetype = setup$hline.lty)+
-    ecodata::theme_facet() +
+    ecodata24::theme_facet() +
     ggplot2::theme(strip.text=ggplot2::element_text(hjust=0),
                    legend.position = "bottom",
                    legend.direction = "horizontal",
@@ -68,7 +68,7 @@ plot_hms_landings <- function(shadedRegion = NULL,
     ggplot2::ylab(ylabdat) +
     ggplot2::xlab("Time")+
     ggplot2::ggtitle(paste("HMS", setup$region, "Commercial", varName))+
-    ecodata::theme_title()
+    ecodata24::theme_title()
 
    # # optional code for New England specific (2 panel) formatting
    #  if (report == "NewEngland") {
@@ -89,7 +89,7 @@ attr(plot_hms_landings,"report") <- c("MidAtlantic","NewEngland")
   # Paste commented original plot code chunk for reference
   #Get data for plotting
   # ## Apex pred
-  # apex<-ecodata::hms_landings %>%
+  # apex<-ecodata24::hms_landings %>%
   #   dplyr::filter(stringr::str_detect(Var, "Landings")) %>%
   #   #dplyr::mutate(Value = as.numeric(Value)) %>%
   #   separate(Var, c("Var", "trash"), sep = "_") #%>%
@@ -113,7 +113,7 @@ attr(plot_hms_landings,"report") <- c("MidAtlantic","NewEngland")
   #   #            size = hline.size,
   #   #            alpha = hline.alpha,
   #   #            linetype = hline.lty)+
-  #   ecodata::theme_facet() +
+  #   ecodata24::theme_facet() +
   #   ggplot2::theme(strip.text=element_text(hjust=0),
   #                  legend.position = "bottom",
   #                  legend.direction = "horizontal",
@@ -121,7 +121,7 @@ attr(plot_hms_landings,"report") <- c("MidAtlantic","NewEngland")
   #   ggplot2::ylab("Landings (metric tons)")+
   #   ggplot2::ggtitle("HMS Commercial Landings")
   # ggplot2::xlab(element_blank())+
-  #   ecodata::theme_title()
+  #   ecodata24::theme_title()
   #
   # p1
   #

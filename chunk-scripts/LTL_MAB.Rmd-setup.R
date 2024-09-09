@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = FALSE,
 library(ggplot2)
 library(dplyr)
 library(tidyr)
-library(ecodata)
+library(ecodata24)
 library(here)
 library(kableExtra)
 library(ggrepel)
@@ -42,7 +42,7 @@ library(raster)
 crs <- "+proj=longlat +lat_1=35 +lat_2=45 +lat_0=40 +lon_0=-77 +x_0=0 +y_0=0 +datum=NAD83 +no_defs +ellps=GRS80 +towgs84=0,0,0"
 
 #EPU shapefile
-epu_sf <- ecodata::epu_sf %>% 
+epu_sf <- ecodata24::epu_sf %>% 
   filter(EPU %in% c("MAB","GB","GOM"))
 
 #Map line parameters

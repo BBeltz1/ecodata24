@@ -15,7 +15,7 @@ plot_gom_salmon <- function(shadedRegion = NULL,
                             report="NewEngland") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -25,9 +25,9 @@ plot_gom_salmon <- function(shadedRegion = NULL,
     filterEPUs <- c("GB", "GOM")
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
-  fix<- ecodata::gom_salmon
+  fix<- ecodata24::gom_salmon
 
   # code for generating plot object p
   # ensure that setup list objects are called as setup$...
@@ -52,9 +52,9 @@ plot_gom_salmon <- function(shadedRegion = NULL,
     #ggplot2::ylab()+
     ggplot2::xlab(ggplot2::element_blank())+
     ggplot2::ylab(ggplot2::element_blank())+
-    ecodata::geom_gls()+
-    ecodata::theme_ts()+
-    ecodata::theme_title()+
+    ecodata24::geom_gls()+
+    ecodata24::theme_ts()+
+    ecodata24::theme_title()+
     ggplot2::theme(strip.placement = "outside",
                    strip.background = ggplot2::element_blank())
 

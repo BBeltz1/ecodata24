@@ -1,5 +1,5 @@
 
-ecodata::ch_bay_temp %>%
+ecodata24::ch_bay_temp %>%
   tidyr::pivot_wider(names_from = Var, values_from = Value) %>% 
   dplyr::mutate(YearLTAC = (YearLTA - 32)*(5/9),
                 minLTAC = (minLTA - 32)*(5/9),
@@ -14,5 +14,5 @@ ecodata::ch_bay_temp %>%
   ggplot2::ggtitle("Chesapeake Bay Temperature") +
   ggplot2::theme(legend.position = "bottom", 
                  legend.title = element_blank())+
-  ecodata::theme_ts()+
-  ecodata::theme_title()
+  ecodata24::theme_ts()+
+  ecodata24::theme_title()

@@ -16,7 +16,7 @@ plot_heatwave_peak_date <- function(shadedRegion = NULL,
                               report="MidAtlantic") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -42,14 +42,14 @@ plot_heatwave_peak_date <- function(shadedRegion = NULL,
 
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
   #EPU shapefile
-  report_epu_sf <- ecodata::epu_sf |>
+  report_epu_sf <- ecodata24::epu_sf |>
     sf::st_as_sf() |>
     dplyr::filter(EPU %in% filterEPUs)
 
-  hw <- ecodata::heatwave_peak_date |>
+  hw <- ecodata24::heatwave_peak_date |>
     dplyr::filter(EPU %in% filterEPUs) |>
     dplyr::mutate(Value = replace(Value, Value > 4, 4))
 
@@ -64,7 +64,7 @@ plot_heatwave_peak_date <- function(shadedRegion = NULL,
   p <-
     ggplot2::ggplot() +
     ggplot2::geom_tile(data =hw, ggplot2::aes(x = Longitude, y = Latitude,fill = Value)) +
-    ggplot2::geom_sf(data = ecodata::coast, size = setup$map.lwd) +
+    ggplot2::geom_sf(data = ecodata24::coast, size = setup$map.lwd) +
     ggplot2::geom_sf(data = report_epu_sf, fill = "transparent", size = setup$map.lwd) +
     ggplot2::scale_fill_gradientn(name = "Temp.\nAnomaly (C)",
                                   colours = c(scales::muted("blue"), "white",
@@ -73,7 +73,7 @@ plot_heatwave_peak_date <- function(shadedRegion = NULL,
                                   guide = "colorbar", limits=c(-4,8)) +
     ggplot2::coord_sf(crs = setup$crs, xlim = setup$xlims, ylim = setup$ylims) +
     ggplot2::facet_wrap(EPU~.) +
-    ecodata::theme_map() +
+    ecodata24::theme_map() +
     ggplot2::ggtitle(paste(setup$region, "heatwave anomaly")) + #add date
     ggplot2::xlab("Longitude") +
     ggplot2::ylab("Latitude") +
@@ -83,7 +83,7 @@ plot_heatwave_peak_date <- function(shadedRegion = NULL,
                    strip.background = ggplot2::element_blank(),
                    strip.text = ggplot2::element_text(hjust=0),
                    axis.text = ggplot2::element_text(size = 8))+
-    ecodata::theme_title()
+    ecodata24::theme_title()
 
    # optional code for New England specific (2 panel) formatting
     if (report == "NewEngland") {
@@ -102,7 +102,7 @@ attr(plot_heatwave_peak_date,"report") <- c("MidAtlantic","NewEngland")
   # Paste commented original plot code chunk for reference
   # LTL_MAB.Rmd-heatwave-anom-grid
   # #EPU shapefile
-  # mab_epu_sf <- ecodata::epu_sf %>%
+  # mab_epu_sf <- ecodata24::epu_sf %>%
   #   dplyr::filter(EPU %in% c("MAB"))
   #
   # #Map line parameters
@@ -115,14 +115,14 @@ attr(plot_heatwave_peak_date,"report") <- c("MidAtlantic","NewEngland")
   # ymax = 43
   # xlims <- c(xmin, xmax)
   # ylims <- c(ymin, ymax)
-  # hw <- ecodata::heatwave_peak_date %>%
+  # hw <- ecodata24::heatwave_peak_date %>%
   #   dplyr::filter(EPU == "MAB") %>%
   #   dplyr::mutate(Value = replace(Value, Value > 4, 4))
   #
   # mab_map <-
   #   ggplot2::ggplot() +
   #   ggplot2::geom_tile(data =hw, aes(x = Longitude, y = Latitude,fill = Value)) +
-  #   ggplot2::geom_sf(data = ecodata::coast, size = map.lwd) +
+  #   ggplot2::geom_sf(data = ecodata24::coast, size = map.lwd) +
   #   ggplot2::geom_sf(data = mab_epu_sf, fill = "transparent", size = map.lwd) +
   #   ggplot2::scale_fill_gradientn(name = "Temp.\nAnomaly (C)",
   #                                 colours = c(scales::muted("blue"), "white",
@@ -139,7 +139,7 @@ attr(plot_heatwave_peak_date,"report") <- c("MidAtlantic","NewEngland")
   #   #                      limits = c(-4,8)) +
   #   ggplot2::coord_sf(crs = crs, xlim = xlims, ylim = ylims) +
   #   #facet_wrap(Season~.) +
-  #   ecodata::theme_map() +
+  #   ecodata24::theme_map() +
   #   ggplot2::ggtitle("MAB heatwave anomaly (July 28, 2020)") +
   #   ggplot2::xlab("Longitude") +
   #   ggplot2::ylab("Latitude") +
@@ -149,7 +149,7 @@ attr(plot_heatwave_peak_date,"report") <- c("MidAtlantic","NewEngland")
   #                  strip.background = element_blank(),
   #                  strip.text=element_text(hjust=0),
   #                  axis.text = element_text(size = 8))+
-  #   ecodata::theme_title()
+  #   ecodata24::theme_title()
   #
   #
   # mab_map

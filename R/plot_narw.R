@@ -17,7 +17,7 @@ plot_narw <- function(shadedRegion = NULL,
                       varName = "adult") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -35,15 +35,15 @@ plot_narw <- function(shadedRegion = NULL,
     vylab <- "Number of individuals"
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
 
   if (varName == "calf") {
-    fix<- ecodata::narw |>
+    fix<- ecodata24::narw |>
       dplyr::filter(Var == "Calves") |>
       dplyr::mutate(hline = mean(Value, na.rm = TRUE))
   } else {
-    fix<- ecodata::narw |>
+    fix<- ecodata24::narw |>
        dplyr::filter(Var != "Calves") |>
        tidyr::pivot_wider(  id_cols = c(Time,EPU,Units),
                               names_from = Var,
@@ -71,8 +71,8 @@ plot_narw <- function(shadedRegion = NULL,
                         alpha = setup$hline.alpha,
                         linetype = setup$hline.lty) +
     ggplot2::xlab(ggplot2::element_blank())+
-    ecodata::theme_ts()+
-    ecodata::theme_title()
+    ecodata24::theme_ts()+
+    ecodata24::theme_title()
 
   if(varName == "adult"){
     p <- p + ggplot2::geom_ribbon(ggplot2::aes(ymin = Lower95, ymax = Upper95, x = Time), alpha = setup$shade.alpha)

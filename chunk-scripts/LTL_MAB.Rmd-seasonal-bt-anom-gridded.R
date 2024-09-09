@@ -10,7 +10,7 @@ annotation_custom2 <- function (data, ...)
 }
 
 #EPU shapefile
-mab_epu_sf <- ecodata::epu_sf %>% 
+mab_epu_sf <- ecodata24::epu_sf %>% 
   dplyr::filter(EPU %in% c("MAB")) 
 
 #Map line parameters
@@ -23,14 +23,14 @@ ymin = 36.5
 ymax = 43
 xlims <- c(xmin, xmax)
 ylims <- c(ymin, ymax)
-sst <- ecodata::seasonal_sst_anomaly_gridded 
-bt<- ecodata::seasonal_bt_anomaly_gridded
+sst <- ecodata24::seasonal_sst_anomaly_gridded 
+bt<- ecodata24::seasonal_bt_anomaly_gridded
 
 bt$Season <- factor(bt$Season, levels = c("Winter",
                                             "Spring",
                                             "Summer",
                                             "Fall"))
-# ma_anom<-ecodata::seasonal_oisst_anom
+# ma_anom<-ecodata24::seasonal_oisst_anom
 # 
 # ma_anom$Var <- factor(ma_anom$Var, levels= c("Winter","Spring","Summer","Fall"))
 bt<- bt %>% dplyr::mutate(Value = replace(Value, Value > 5, 5))
@@ -41,7 +41,7 @@ bt_map <- function(season){
     dplyr::filter(Season == season) %>% 
     ggplot2::ggplot() +
   ggplot2::geom_tile(aes(x = Longitude, y = Latitude,fill = Value)) +
-  ggplot2::geom_sf(data = ecodata::coast, size = map.lwd) +
+  ggplot2::geom_sf(data = ecodata24::coast, size = map.lwd) +
   ggplot2::geom_sf(data = mab_epu_sf, fill = "transparent", size = map.lwd) +
   ggplot2::scale_fill_gradient2(name = "Temp.\nAnomaly (C)",
                        low = scales::muted("blue"),
@@ -51,7 +51,7 @@ bt_map <- function(season){
                        labels = c("<-5", "-2", "0", "2", ">5")) +
   ggplot2::coord_sf(crs = crs, xlim = xlims, ylim = ylims) +
   #ggplot2::facet_wrap(Season~.) +
-  ecodata::theme_map() +
+  ecodata24::theme_map() +
   ggplot2::ggtitle(season) +
   ggplot2::xlab(element_blank()) +
   ggplot2::ylab(element_blank()) +
@@ -62,12 +62,12 @@ bt_map <- function(season){
         strip.text=element_text(hjust=0),
         axis.text = element_text(size = 8), 
         axis.title.y = element_text(angle = 90))+
-  ecodata::theme_title()
+  ecodata24::theme_title()
 }
-bt1<- ecodata::bottom_temp_comp %>%
+bt1<- ecodata24::bottom_temp_comp %>%
   dplyr::filter(Time >= 2021) %>% 
   dplyr::mutate(Source = c("PSY"))
-bt_ts<- ecodata::bottom_temp_comp %>% 
+bt_ts<- ecodata24::bottom_temp_comp %>% 
   dplyr::filter(Time <= 2020) %>% 
   dplyr::mutate(Source = c("Glorys")) %>% 
   rbind(bt1) 
@@ -86,12 +86,12 @@ season_anom <- function(season){
                               ggplot2::geom_line() +
                               ggplot2::geom_point(aes(shape = Source)) +
                               ggplot2::scale_shape_manual(values = c(16, 1))+
-                              ecodata::geom_gls(alpha = trend.alpha + 0.25) +
+                              ecodata24::geom_gls(alpha = trend.alpha + 0.25) +
                               ggplot2::ylab("BT anomaly (C)")+
                               ggplot2::xlab(element_blank())+
                               ggplot2::scale_x_continuous(expand = c(0.01, 0.01)) +
                               ggplot2::geom_hline(aes(yintercept = hline)) +
-                              ecodata::theme_ts()+
+                              ecodata24::theme_ts()+
                               ggplot2::theme(axis.title = element_text(size = 6),
                                     axis.text = element_text(size = 6),
                                     panel.background = element_rect(fill = "transparent"), 

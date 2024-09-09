@@ -1,5 +1,5 @@
 
-ecodata::bottom_temp_glorys %>%
+ecodata24::bottom_temp_glorys %>%
   dplyr::filter(EPU == epu_abbr)%>%
   dplyr::group_by(EPU) %>%
   dplyr::mutate(hline = mean(Value)) %>%
@@ -8,7 +8,7 @@ ggplot2::ggplot() +
       xmin = x.shade.min , xmax = x.shade.max,
       ymin = -Inf, ymax = Inf) +
   ggplot2::geom_line(aes(x = Time, y = Value)) +
-  #ecodata::geom_gls(aes(x = Time, y = Value)) +
+  #ecodata24::geom_gls(aes(x = Time, y = Value)) +
   ggplot2::geom_point(aes(x = Time, y = Value), size = 1) +
   ggplot2::ylab("Temperature (C)") +
   ggplot2::xlab(element_blank())+
@@ -20,4 +20,4 @@ ggplot2::ggplot() +
            size = hline.size,
            alpha = hline.alpha,
            linetype = hline.lty) +
-  ecodata::theme_ts()
+  ecodata24::theme_ts()

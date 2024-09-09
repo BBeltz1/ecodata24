@@ -15,7 +15,7 @@ plot_calanus_stage <- function(shadedRegion = NULL,
                               report="MidAtlantic") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -25,9 +25,9 @@ plot_calanus_stage <- function(shadedRegion = NULL,
     filterEPUs <- c("GB", "GOM")
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
-  cal <- ecodata::calanus_stage |>
+  cal <- ecodata24::calanus_stage |>
     dplyr::filter(EPU %in% filterEPUs) |>
     tidyr::separate(Var, into = c("Var", "season"), sep = "-") |>
     dplyr::filter(Var %in% c("c3", "c4", "c5", "adt")) |>
@@ -54,10 +54,10 @@ plot_calanus_stage <- function(shadedRegion = NULL,
     ggplot2::ggtitle("Calanus Stage Abundance") +
     ggplot2::theme(legend.position = "bottom",
                    legend.title = ggplot2::element_blank())+
-    ecodata::theme_facet()+
+    ecodata24::theme_facet()+
     ggplot2::scale_fill_manual(values = c("steelblue1","coral1","steelblue3", "coral3"))+
     ggplot2::scale_color_manual(values = c("steelblue1","coral1","steelblue3","coral3"))+
-    ecodata::theme_title()
+    ecodata24::theme_title()
 
 
    # optional code for New England specific (2 panel) formatting
@@ -77,7 +77,7 @@ attr(plot_calanus_stage,"report") <- c("MidAtlantic","NewEngland")
 
   # Paste commented original plot code chunk for reference
   # MAB
-  # cal <- ecodata::calanus_stage %>%
+  # cal <- ecodata24::calanus_stage %>%
   #   dplyr::filter(EPU == "MAB") %>%
   #   tidyr::separate(Var, into = c("Var", "season"), sep = "-") %>%
   #   filter(Var %in% c("c3", "c4", "c5", "adt"))
@@ -97,10 +97,10 @@ attr(plot_calanus_stage,"report") <- c("MidAtlantic","NewEngland")
   #   ggplot2::ggtitle("MAB Calanus Stage Abundance") +
   #   ggplot2::theme(legend.position = "bottom",
   #                  legend.title = element_blank())+
-  #   ecodata::theme_facet()+
+  #   ecodata24::theme_facet()+
   #   scale_fill_manual(values = c("steelblue1","steelblue3", "coral1", "coral3"))+
   #   scale_color_manual(values = c("steelblue1","steelblue3", "coral1", "coral3"))+
-  #   ecodata::theme_title()
+  #   ecodata24::theme_title()
   #
   #
 

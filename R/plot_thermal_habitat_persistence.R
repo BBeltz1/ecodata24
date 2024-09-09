@@ -16,7 +16,7 @@ plot_thermal_habitat_persistence <- function(shadedRegion = NULL,
                                              year = NULL) {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -32,9 +32,9 @@ plot_thermal_habitat_persistence <- function(shadedRegion = NULL,
   } else {
     Yr <- year
   }
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
-  fix <- ecodata::thermal_habitat_persistence |>
+  fix <- ecodata24::thermal_habitat_persistence |>
     dplyr::mutate(Var = paste0(Var,"\u00B0C")) |>
     dplyr::filter(Time == Yr)
 
@@ -45,7 +45,7 @@ plot_thermal_habitat_persistence <- function(shadedRegion = NULL,
     ggplot2::ggplot()+
     ggplot2::geom_tile(ggplot2::aes(x=Longitude,y = Latitude, color = Value, width = 1/12, height = 1/12),
                        linewidth = setup$line.size) +
-    ggplot2::geom_sf(data=ecodata::coast, size = setup$map.lwd) +
+    ggplot2::geom_sf(data=ecodata24::coast, size = setup$map.lwd) +
     ggplot2::facet_wrap(~Var )+
     ggplot2::scale_color_viridis_c(legendTitle)+
     ggplot2::coord_sf(xlim = c(setup$xmin,setup$xmax), ylim = c(setup$ymin,setup$ymax)) +
@@ -53,9 +53,9 @@ plot_thermal_habitat_persistence <- function(shadedRegion = NULL,
 
     ggplot2::xlab('')+
     ggplot2::ylab('')+
-    ecodata::theme_ts()+
-    ecodata::theme_facet()+
-    ecodata::theme_title() +
+    ecodata24::theme_ts()+
+    ecodata24::theme_facet()+
+    ecodata24::theme_title() +
     ggplot2::theme(legend.position = "bottom")
 
 

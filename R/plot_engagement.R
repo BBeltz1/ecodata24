@@ -17,7 +17,7 @@ plot_engagement <- function(shadedRegion = NULL,
                             varName="Commercial") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -27,9 +27,9 @@ plot_engagement <- function(shadedRegion = NULL,
     filterEPUs <- setup$region_abbr
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
-  eng<-ecodata::engagement |>
+  eng<-ecodata24::engagement |>
     dplyr::filter(EPU == filterEPUs,
                   Fishery == varName) |>
     dplyr::rename("EJRating" = "EJ Rating") |>
@@ -75,9 +75,9 @@ plot_engagement <- function(shadedRegion = NULL,
     ggplot2::ggtitle(paste(setup$region, "Environmental Justice in Top", varName, "Fishing Communities"))+
     #ggplot2::guides(color = FALSE) +
     #theme_bw()
-    ecodata::theme_ts()+
-    ecodata::theme_title()
-  #ecodata::theme_facet()
+    ecodata24::theme_ts()+
+    ecodata24::theme_title()
+  #ecodata24::theme_facet()
 
 
   #p <- gridExtra::grid.arrange(eng2, bottom = grid::textGrob("Low <---------------------------------------------------------------------------------------------------------------------------> High",

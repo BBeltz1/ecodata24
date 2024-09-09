@@ -18,7 +18,7 @@ plot_stock_status <- function(shadedRegion = NULL,
                               report="MidAtlantic") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -28,9 +28,9 @@ plot_stock_status <- function(shadedRegion = NULL,
     councils <- c("NEFMC","Both")
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
-   fix<- ecodata::stock_status |>
+   fix<- ecodata24::stock_status |>
      dplyr::mutate(Code = dplyr::recode(Code, "Dogfish" = "Sp. Dogfish" ),
                    Code = dplyr::recode(Code, "Mackerel" = "At. Mackerel"))
    fix <- tidyr::pivot_wider(fix,names_from=Var,values_from=Value) |>
@@ -78,8 +78,8 @@ plot_stock_status <- function(shadedRegion = NULL,
     ggplot2::ylab(expression(~F/F[msy])) +
     ggplot2::guides(color = "none") +
     ggplot2::ggtitle(paste0(report,": stock status"))+
-    ecodata::theme_ts()+
-    ecodata::theme_title()
+    ecodata24::theme_ts()+
+    ecodata24::theme_title()
 
    # # optional code for New England specific (2 panel) formatting
    #  if (report == "NewEngland") {

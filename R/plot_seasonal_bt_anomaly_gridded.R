@@ -12,7 +12,7 @@ plot_seasonal_bt_anomaly_gridded <- function(shadedRegion=NULL,
                                              report = "MidAtlantic") {
 
 
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   if (report == "MidAtlantic") {
@@ -39,10 +39,10 @@ plot_seasonal_bt_anomaly_gridded <- function(shadedRegion=NULL,
 
 
   #EPU shapefile
-  ne_epu_sf <- ecodata::epu_sf |>
+  ne_epu_sf <- ecodata24::epu_sf |>
     dplyr::filter(EPU %in% filterEPUs)
 
-  fix <- ecodata::seasonal_bt_anomaly_gridded |>
+  fix <- ecodata24::seasonal_bt_anomaly_gridded |>
     dplyr::mutate (Season = factor(Season, levels = c("Winter",
                                                          "Spring",
                                                          "Summer",
@@ -51,7 +51,7 @@ plot_seasonal_bt_anomaly_gridded <- function(shadedRegion=NULL,
 
   p <- ggplot2::ggplot(data = fix) +
     ggplot2::geom_tile(ggplot2::aes(x = Longitude, y = Latitude, fill = Value)) +
-    ggplot2::geom_sf(data = ecodata::coast, size = setup$map.lwd) +
+    ggplot2::geom_sf(data = ecodata24::coast, size = setup$map.lwd) +
     ggplot2::geom_sf(data = ne_epu_sf, fill = "transparent", size = setup$map.lwd) +
     ggplot2::scale_fill_gradient2(name = "Temp.\nAnomaly (C)",
                                   low = scales::muted("blue"),
@@ -61,7 +61,7 @@ plot_seasonal_bt_anomaly_gridded <- function(shadedRegion=NULL,
                                   labels = c("<-5", "-2", "0", "2", ">5")) +
     ggplot2::coord_sf(xlim = xlims, ylim = ylims) +
     ggplot2::facet_wrap(Season~.) +
-    ecodata::theme_map() +
+    ecodata24::theme_map() +
     ggplot2::ggtitle("BT anomaly") +
     ggplot2::xlab("Longitude") +
     ggplot2::ylab("Latitude") +
@@ -72,8 +72,8 @@ plot_seasonal_bt_anomaly_gridded <- function(shadedRegion=NULL,
                    strip.text=ggplot2::element_text(hjust=0),
                    axis.text = ggplot2::element_text(size = 8),
                    axis.title.y = ggplot2::element_text(angle = 90))+
-    ecodata::theme_title() +
-    ecodata::theme_ts()
+    ecodata24::theme_title() +
+    ecodata24::theme_ts()
 
 
   return(p)

@@ -19,7 +19,7 @@ plot_wind_revenue <- function(shadedRegion = NULL,
                               plottype = "facets") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -29,9 +29,9 @@ plot_wind_revenue <- function(shadedRegion = NULL,
     filterEPUs <- c("NE")
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
-   fix <- tidyr::separate(ecodata::wind_revenue,col=Var, into = c("Species", "Var"),sep = "-sum_") |>
+   fix <- tidyr::separate(ecodata24::wind_revenue,col=Var, into = c("Species", "Var"),sep = "-sum_") |>
      dplyr::filter(Var == varName) |>
      dplyr::mutate(Value = Value/1000000) |>
      dplyr::mutate(Species = dplyr::recode(Species,"MONK"="MONKFISH"))
@@ -76,10 +76,10 @@ plot_wind_revenue <- function(shadedRegion = NULL,
         ggplot2::ylab(wind_label)+
         ggplot2::xlab(ggplot2::element_blank())+
         ggplot2::facet_wrap(.~Species,scales = "free_y") +
-        #ecodata::geom_gls()+
-        ecodata::theme_ts()+
-        ecodata::theme_facet()+
-        ecodata::theme_title()
+        #ecodata24::geom_gls()+
+        ecodata24::theme_ts()+
+        ecodata24::theme_facet()+
+        ecodata24::theme_title()
    } else {
      p <- fix |>
        ggplot2::ggplot(ggplot2::aes(x = Time, y = Value,color = Species))+
@@ -92,10 +92,10 @@ plot_wind_revenue <- function(shadedRegion = NULL,
        ggplot2::ylab(wind_label)+
        ggplot2::xlab(ggplot2::element_blank())+
 
-       #ecodata::geom_gls()+
-       ecodata::theme_ts()+
-       ecodata::theme_facet()+
-       ecodata::theme_title()
+       #ecodata24::geom_gls()+
+       ecodata24::theme_ts()+
+       ecodata24::theme_facet()+
+       ecodata24::theme_title()
    }
 
 

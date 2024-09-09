@@ -17,7 +17,7 @@ plot_habs <- function(shadedRegion = NULL,
                               varName = "Alexandrium") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -44,7 +44,7 @@ plot_habs <- function(shadedRegion = NULL,
   # e.g. fill = setup$shade.fill, alpha = setup$shade.alpha,
   # xmin = setup$x.shade.min , xmax = setup$x.shade.max
 
-  p <-  ecodata::habs |>
+  p <-  ecodata24::habs |>
      dplyr::filter(Source == varName,
                    EPU %in% filterEPUs) |>
      ggplot2::ggplot(ggplot2::aes(x = Time, y = Value, color = Var))+
@@ -53,14 +53,14 @@ plot_habs <- function(shadedRegion = NULL,
                        ymin = -Inf, ymax = Inf) +
      ggplot2::geom_point()+
      ggplot2::geom_line()+
-     ecodata::theme_ts()+
+     ecodata24::theme_ts()+
      ggplot2::scale_color_discrete(name = plotLegend)+
-     ecodata::theme_title()+
+     ecodata24::theme_title()+
      ggplot2::ylab(plotylab)+
      ggplot2::xlab(ggplot2::element_blank())+
      ggplot2::ggtitle(plotTitle)+
-     #ecodata::geom_gls()+
-     ecodata::theme_facet()
+     #ecodata24::geom_gls()+
+     ecodata24::theme_facet()
 
   if(report == "MidAtlantic") {
     p <- "This indicator is only present in the 'NewEngland' report"

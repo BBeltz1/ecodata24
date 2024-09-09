@@ -15,7 +15,7 @@ plot_bottom_temp_seasonal_gridded <- function(shadedRegion = NULL,
                                               scale = "celsius") {
 
 
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   if (report == "MidAtlantic") {
@@ -42,11 +42,11 @@ plot_bottom_temp_seasonal_gridded <- function(shadedRegion = NULL,
 
 
   #EPU shapefile
-  ne_epu_sf <- ecodata::epu_sf |>
+  ne_epu_sf <- ecodata24::epu_sf |>
     dplyr::filter(EPU %in% filterEPUs)
 
 
-  fix <- ecodata::bottom_temp_seasonal_gridded |>
+  fix <- ecodata24::bottom_temp_seasonal_gridded |>
     dplyr::filter(Time == max(Time)) |>
     dplyr::select(-Time) |>
     dplyr::mutate(Var = factor(Var, levels = c("winter","spring","summer","fall")))
@@ -77,11 +77,11 @@ plot_bottom_temp_seasonal_gridded <- function(shadedRegion = NULL,
 
   p <- ggplot2::ggplot(data = fix)+
     ggplot2::geom_tile(ggplot2::aes(x = Longitude, y = Latitude, fill = Value)) +
-    ggplot2::geom_sf(data = ecodata::coast, size = setup$map.lwd) +
+    ggplot2::geom_sf(data = ecodata24::coast, size = setup$map.lwd) +
     ggplot2::geom_sf(data = ne_epu_sf, fill = "transparent", size = setup$map.lwd) +
     ggplot2::coord_sf(xlim = xlims, ylim = ylims) +
     ggplot2::facet_wrap(Var~.)+
-    ecodata::theme_map() +
+    ecodata24::theme_map() +
     #scales::show_col(viridis::inferno(n=3)) Find the colors
     ggplot2::scale_fill_gradient2(name = label,
                                   low = "#000004FF",
@@ -101,9 +101,9 @@ plot_bottom_temp_seasonal_gridded <- function(shadedRegion = NULL,
                    strip.text=ggplot2::element_text(hjust=0),
                    axis.text = ggplot2::element_text(size = 8),
                    axis.title.y = ggplot2::element_text(angle = 90))+
-    ecodata::theme_title() +
+    ecodata24::theme_title() +
 
-    ecodata::theme_ts()
+    ecodata24::theme_ts()
 
 
   return(p)
@@ -116,7 +116,7 @@ attr(plot_bottom_temp_seasonal_gridded,"report") <- c("MidAtlantic","NewEngland"
 # p <-
 #   ggplot2::ggplot() +
 #   ggplot2::geom_tile(data = sst, ggplot2::aes(x = Longitude, y = Latitude,fill = Value)) +
-#   ggplot2::geom_sf(data = ecodata::coast, size = setup$map.lwd) +
+#   ggplot2::geom_sf(data = ecodata24::coast, size = setup$map.lwd) +
 #   ggplot2::geom_sf(data = ne_epu_sf, fill = "transparent", size = setup$map.lwd) +
 #   ggplot2::scale_fill_gradient2(name = "Temp.\nAnomaly (C)",
 #                                 low = scales::muted("blue"),
@@ -126,7 +126,7 @@ attr(plot_bottom_temp_seasonal_gridded,"report") <- c("MidAtlantic","NewEngland"
 #                                 labels = c("<-5", "-2", "0", "2", ">5")) +
 #   ggplot2::coord_sf(xlim = xlims, ylim = ylims) +
 #   ggplot2::facet_wrap(Season~.) +
-#   ecodata::theme_map() +
+#   ecodata24::theme_map() +
 #   ggplot2::ggtitle("SST anomaly") +
 #   ggplot2::xlab("Longitude") +
 #   ggplot2::ylab("Latitude") +
@@ -138,4 +138,4 @@ attr(plot_bottom_temp_seasonal_gridded,"report") <- c("MidAtlantic","NewEngland"
 #                  axis.text = ggplot2::element_text(size = 8),
 #                  axis.title.y = ggplot2::element_text(angle = 90))+
 #
-#    ecodata::theme_title()
+#    ecodata24::theme_title()

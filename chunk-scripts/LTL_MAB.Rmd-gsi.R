@@ -1,5 +1,5 @@
 
-ecodata::gsi %>%
+ecodata24::gsi %>%
   dplyr::mutate(Year = floor(Time)) %>%
   dplyr::group_by(Year) %>%
   dplyr::summarise(Value = mean(Value)) %>%
@@ -9,8 +9,8 @@ ecodata::gsi %>%
   ggplot2::annotate("rect", fill = shade.fill, alpha = shade.alpha,
       xmin = x.shade.min , xmax = x.shade.max,
       ymin = -Inf, ymax = Inf) +
-  ecodata::geom_gls() +
-  #ecodata::geom_lm(aes(x = Time, y = Value))+
+  ecodata24::geom_gls() +
+  #ecodata24::geom_lm(aes(x = Time, y = Value))+
   ggplot2::geom_line() +
   ggplot2::geom_point() +
   ggplot2::ylab("Gulf Stream position anomaly") +
@@ -21,6 +21,6 @@ ecodata::gsi %>%
            size = hline.size,
            alpha = hline.alpha,
            linetype = hline.lty)+
-  ecodata::theme_ts() +
+  ecodata24::theme_ts() +
   ggplot2::theme(strip.text=element_text(hjust=0,
                                 face = "italic"))

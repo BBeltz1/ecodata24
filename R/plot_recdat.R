@@ -17,7 +17,7 @@ plot_recdat <- function(shadedRegion = NULL,
                         varName = "landings") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -51,9 +51,9 @@ plot_recdat <- function(shadedRegion = NULL,
   }
 
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
-   fix <- ecodata::recdat |>
+   fix <- ecodata24::recdat |>
      dplyr::filter(EPU %in% filterEPUs,
                    Var == varName) |>
      dplyr::mutate(Value = Value/scalar) |>
@@ -79,9 +79,9 @@ plot_recdat <- function(shadedRegion = NULL,
                         alpha = setup$hline.alpha,
                         linetype = setup$hline.lty) +
     ggplot2::scale_x_continuous(expand = c(0.01, 0.01)) +
-    ecodata::geom_gls()+
-    ecodata::theme_ts()+
-    ecodata::theme_title()
+    ecodata24::geom_gls()+
+    ecodata24::theme_ts()+
+    ecodata24::theme_title()
 
    # optional code for New England specific (2 panel) formatting
     if (report == "NewEngland") {

@@ -17,7 +17,7 @@ plot_condition <- function(shadedRegion = NULL,
                            EPU="MAB") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -33,10 +33,10 @@ plot_condition <- function(shadedRegion = NULL,
   numberOfConditions <- 5
 
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
 
-   fix<- ecodata::condition |>
+   fix<- ecodata24::condition |>
      dplyr::filter(EPU == filterEPUs) |>
      dplyr::group_by(Var) |>
      dplyr::mutate(scaleCond = scale(Value,scale =T,center=T))
@@ -93,8 +93,8 @@ plot_condition <- function(shadedRegion = NULL,
     ggplot2::ggtitle(paste0("Condition factor for species sampled in ",EPU)) +
     ggplot2::ylab(ggplot2::element_blank())+
     ggplot2::xlab(ggplot2::element_blank())+
-    ecodata::theme_ts()+
-    ecodata::theme_title()
+    ecodata24::theme_ts()+
+    ecodata24::theme_title()
 
     return(p)
 

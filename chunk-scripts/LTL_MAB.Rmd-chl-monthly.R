@@ -1,5 +1,5 @@
 
-out_chl <- ecodata::chl_pp %>% 
+out_chl <- ecodata24::chl_pp %>% 
   dplyr::filter(EPU == epu_abbr,
          stringr::str_detect(Var, "MONTHLY_CHLOR_A_MEDIAN")) %>% 
   tidyr::separate(.,Time, into = c("Cat", "Time2"), sep = "_") %>% 
@@ -16,7 +16,7 @@ out_chl$Month <- factor(out_chl$Month, levels = month.abb)
 
 chl_cci <- ggplot2::ggplot(out_chl) +
    # geom_gls(aes(x = Year, y = Value, group = Month))+
-    #ecodata::geom_lm(aes(x = Year, y = Value, group = Month))+
+    #ecodata24::geom_lm(aes(x = Year, y = Value, group = Month))+
     ggplot2::geom_point(aes(x = Year, y = Value, group = Month)) +
     ggplot2::geom_line(aes(x = Year, y = Value, group = Month)) +
     ggplot2::scale_x_discrete(name = "", breaks = seq(min(out_chl$Year),max(out_chl$Year),10)) +  
@@ -27,10 +27,10 @@ chl_cci <- ggplot2::ggplot(out_chl) +
     ggplot2::facet_wrap(Month~., ncol = 12) +
     ggplot2::ggtitle("Monthly median CHL") +
     ggplot2::ylab(expression("CHL (mg m"^-3*")")) +
-    ecodata::theme_facet() +
+    ecodata24::theme_facet() +
     ggplot2::theme(axis.text.x = element_text(angle=45, hjust = 1),
           panel.spacing = unit(.5, "lines"),
           plot.margin = unit(c(0.1, 0, 0, 0), "cm"))+
-  ecodata::theme_title()
+  ecodata24::theme_title()
 
 chl_cci

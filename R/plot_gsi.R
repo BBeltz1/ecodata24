@@ -16,7 +16,7 @@ plot_gsi <- function(shadedRegion = NULL,
                      varName = "gsi") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -32,12 +32,12 @@ plot_gsi <- function(shadedRegion = NULL,
   } else {
     var <- "western gulf stream index"
   }
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
 
 
 
-  fix <- ecodata::gsi  |>
+  fix <- ecodata24::gsi  |>
     dplyr::filter(Var == var) |>
     dplyr::mutate(Year = floor(Time)) |>
     dplyr::group_by(Year) |>
@@ -60,13 +60,13 @@ plot_gsi <- function(shadedRegion = NULL,
     ggplot2::ggtitle(stringr::str_to_title(var))+
     ggplot2::ylab("Anomaly")+
     ggplot2::xlab(ggplot2::element_blank())+
-    ecodata::geom_gls()+
-    ecodata::theme_ts()+
+    ecodata24::geom_gls()+
+    ecodata24::theme_ts()+
     ggplot2::geom_hline(ggplot2::aes(yintercept = hline),
                         linewidth = setup$hline.size,
                         alpha = setup$hline.alpha,
                         linetype = setup$hline.lty)+
-     ecodata::theme_title()
+     ecodata24::theme_title()
 
    # optional code for New England specific (2 panel) formatting
     # if (report == "NewEngland") {

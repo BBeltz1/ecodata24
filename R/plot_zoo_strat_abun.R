@@ -17,7 +17,7 @@ plot_zoo_strat_abun <- function(shadedRegion = NULL,
                               EPU = "MAB") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -30,9 +30,9 @@ plot_zoo_strat_abun <- function(shadedRegion = NULL,
     filterEPUs <- EPU
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
-   fix<- ecodata::zoo_strat_abun |>
+   fix<- ecodata24::zoo_strat_abun |>
      dplyr::filter(EPU %in% filterEPUs) |>
      dplyr::mutate(Value = log10(Value+1))  |>
      dplyr::group_by(Var, EPU) |>
@@ -59,10 +59,10 @@ plot_zoo_strat_abun <- function(shadedRegion = NULL,
     ggplot2::ylab(expression("Log Stratified Abundance"))+
     ggplot2::xlab(ggplot2::element_blank())+
     ggplot2::facet_wrap(~Var)+
-    ecodata::geom_gls()+
-    ecodata::theme_ts()+
-    ecodata::theme_facet()+
-    ecodata::theme_title()
+    ecodata24::geom_gls()+
+    ecodata24::theme_ts()+
+    ecodata24::theme_facet()+
+    ecodata24::theme_title()
 
    # optional code for New England specific (2 panel) formatting
     if (report == "NewEngland") {

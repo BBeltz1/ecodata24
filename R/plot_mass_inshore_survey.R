@@ -15,7 +15,7 @@ plot_mass_inshore_survey <- function(shadedRegion = NULL,
                               report="MidAtlantic") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -26,9 +26,9 @@ plot_mass_inshore_survey <- function(shadedRegion = NULL,
     filterEPUs <- c("GB", "GOM")
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
-  fix <- ecodata::mass_inshore_survey |>
+  fix <- ecodata24::mass_inshore_survey |>
     dplyr::filter(EPU %in% filterEPUs,
                   !grepl("Other",Var)) |>
     tidyr::separate(Var, into = c("Var",  "Trash"), sep = " - ") |>
@@ -63,7 +63,7 @@ plot_mass_inshore_survey <- function(shadedRegion = NULL,
     dplyr::select(-vars)
 
   # Old code
-  #fix <- ecodata::mass_inshore_survey |>
+  #fix <- ecodata24::mass_inshore_survey |>
   #   dplyr::filter(EPU %in% filterEPUs,
   #                 grepl("Index",Var),
   #                 !grepl("Other",Var)) |>
@@ -119,10 +119,10 @@ plot_mass_inshore_survey <- function(shadedRegion = NULL,
     ggplot2::ylab(expression("Biomass (kg tow"^-1*")"))+
     ggplot2::xlab(ggplot2::element_blank())+
     ggplot2::facet_wrap(~Var,ncol=2,scales = "free_y")+
-    ecodata::geom_gls()+
-    ecodata::theme_ts()+
-    ecodata::theme_facet()+
-    ecodata::theme_title()
+    ecodata24::geom_gls()+
+    ecodata24::theme_ts()+
+    ecodata24::theme_facet()+
+    ecodata24::theme_title()
 
    # optional code for New England specific (2 panel) formatting
     # if (report == "NewEngland") {

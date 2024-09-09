@@ -14,7 +14,7 @@
 #' }
 #'
 #' @details Seasons are defined as: Fall = October, November, December; Winter = January, February, March; Spring = April,
-#' May, June; Summer = July, August, September. Methods used to derive these data are available at \url{https://github.com/NOAA-EDAB/ecodata/blob/master/data-raw/get_seasonal_oisst_anom.R}.
+#' May, June; Summer = July, August, September. Methods used to derive these data are available at \url{https://github.com/NOAA-EDAB/ecodata24/blob/master/data-raw/get_seasonal_oisst_anom.R}.
 #' Contact Kimberly Bastille (kimberly.bastille@noaa.gov) for source data used in the analysis or query your own at
 #'  \url{https://www.esrl.noaa.gov/psd/data/gridded/data.noaa.oisst.v2.highres.html}. For more details about how this indictaor is calculated,
 #'  use our Technical Documentation. \url{https://noaa-edab.github.io/tech-doc/seasonal-sst-anomalies.html}.

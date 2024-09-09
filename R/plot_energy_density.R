@@ -15,7 +15,7 @@ plot_energy_density <- function(shadedRegion = NULL,
                               report="MidAtlantic") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -25,9 +25,9 @@ plot_energy_density <- function(shadedRegion = NULL,
     filterEPUs <- c("GB", "GOM")
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
-  d<-ecodata::energy_density |>
+  d<-ecodata24::energy_density |>
     tidyr::separate(Var, into = c("Species", "Season", "Var"), sep = "/") |>
     tidyr::pivot_wider(names_from = Var, values_from = Value) |>
     dplyr::mutate(Energy.Density_Mean = as.numeric(Energy.Density_Mean),
@@ -62,8 +62,8 @@ plot_energy_density <- function(shadedRegion = NULL,
                    legend.title = ggplot2::element_blank())+
     #ggplot2::scale_x_continuous(breaks=c(2017,2018, 2019, 2020, 2021, 2022))+
     ggplot2::ggtitle("Forage Fish Energy Density")+
-    ecodata::theme_facet()+
-    ecodata::theme_title()
+    ecodata24::theme_facet()+
+    ecodata24::theme_title()
 
    # # optional code for New England specific (2 panel) formatting
    #  if (report == "NewEngland") {
@@ -79,7 +79,7 @@ plot_energy_density <- function(shadedRegion = NULL,
 attr(plot_energy_density,"report") <- c("MidAtlantic","NewEngland")
 
   # Paste commented original plot code chunk for reference
-  # d<-ecodata::energy_density %>%
+  # d<-ecodata24::energy_density %>%
   #   tidyr::separate(Var, into = c("Species", "Season", "Var"), sep = "/") %>%
   #   tidyr::pivot_wider(names_from = Var, values_from = Value)
   #
@@ -109,7 +109,7 @@ attr(plot_energy_density,"report") <- c("MidAtlantic","NewEngland")
   #                  legend.title = element_blank())+
   #   scale_x_continuous(breaks=c(2017,2018, 2019, 2020, 2021, 2022))+
   #   ggplot2::ggtitle("Forage Fish Energy Density")+
-  #   ecodata::theme_facet()+
-  #   ecodata::theme_title()
+  #   ecodata24::theme_facet()+
+  #   ecodata24::theme_title()
   #
   #

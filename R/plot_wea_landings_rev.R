@@ -17,7 +17,7 @@ plot_wea_landings_rev <- function(shadedRegion = NULL,
                               n = 10) {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -27,10 +27,10 @@ plot_wea_landings_rev <- function(shadedRegion = NULL,
     filterEPUs <- c("NE")
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
 
-  fix<- ecodata::wea_landings_rev |>
+  fix<- ecodata24::wea_landings_rev |>
     dplyr::select("NEFMC, MAFMC, and ASMFC Managed Species",
                   "perc_landings_max","perc_revenue_max" ) |>
     dplyr::slice_head(n=n)  |>

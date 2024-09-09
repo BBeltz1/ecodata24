@@ -23,7 +23,7 @@ plot_chl_pp <- function(shadedRegion = NULL,
                         year=NULL) {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -33,7 +33,7 @@ plot_chl_pp <- function(shadedRegion = NULL,
     filterEPUs <- c("GB", "GOM")
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
 
   varabbr <- stringr::str_to_upper(varName)
@@ -45,7 +45,7 @@ plot_chl_pp <- function(shadedRegion = NULL,
     varfilter <- ifelse(varName=="chl", "MONTHLY_CHLOR_A_MEDIAN",
                         "MONTHLY_PPD_MEDIAN")
 
-    out <- ecodata::chl_pp |>
+    out <- ecodata24::chl_pp |>
       dplyr::filter(EPU %in% filterEPUs,
                     stringr::str_detect(Var, varfilter)) |>
       tidyr::separate(Time, into = c("Cat", "Time2"), sep = "_") |>
@@ -62,7 +62,7 @@ plot_chl_pp <- function(shadedRegion = NULL,
   }
 
   if(plottype == "anomaly") {
-    pp_anom <- ecodata::chl_pp |>
+    pp_anom <- ecodata24::chl_pp |>
       dplyr::filter(stringr::str_detect(Var, "ANNUAL_PPD_RATIO_ANOMALY"),
              EPU %in% filterEPUs) |>
       tidyr::separate(Time, into = c("Cat", "Time"), sep = "_") |>
@@ -77,7 +77,7 @@ plot_chl_pp <- function(shadedRegion = NULL,
     varfilter <- ifelse(varName=="chl", "WEEKLY_CHLOR_A_MEDIAN",
                         "WEEKLY_PPD_MEDIAN")
 
-    out <- ecodata::chl_pp |>
+    out <- ecodata24::chl_pp |>
       dplyr::filter(EPU %in% filterEPUs,
                     stringr::str_detect(Var, varfilter)) |>
       tidyr::separate(Time, into = c("Cat", "Time2"), sep = "_") |>
@@ -86,7 +86,7 @@ plot_chl_pp <- function(shadedRegion = NULL,
       dplyr::group_by(EPU) |>
       dplyr::mutate(Time = 1:length(Year))
 
-    ltm_out <- ecodata::chl_pp |>
+    ltm_out <- ecodata24::chl_pp |>
       dplyr::filter(stringr::str_detect(Var, varfilter),
                     EPU %in% filterEPUs) |>
       tidyr::separate(Time, into = c("Cat", "Time2"), sep = "_") |>
@@ -115,7 +115,7 @@ plot_chl_pp <- function(shadedRegion = NULL,
   if(plottype == "monthly") {
     p <- out |>
       ggplot2::ggplot() +
-      #ecodata::geom_lm(aes(x = Year, y = Value, group = Month))+
+      #ecodata24::geom_lm(aes(x = Year, y = Value, group = Month))+
       ggplot2::geom_point(ggplot2::aes(x = Year, y = Value, group = Month)) +
       ggplot2::geom_line(ggplot2::aes(x = Year, y = Value, group = Month)) +
       ggplot2::scale_x_discrete(name = "", breaks = seq(min(out$Year),max(out$Year),10)) +
@@ -127,11 +127,11 @@ plot_chl_pp <- function(shadedRegion = NULL,
                           size = setup$hline.size,
                           alpha = setup$hline.alpha,
                           linetype = setup$hline.lty)+
-      ecodata::theme_facet() +
+      ecodata24::theme_facet() +
       ggplot2::theme(axis.text.x = ggplot2::element_text(angle=45, hjust = 1),
                      panel.spacing = ggplot2::unit(1, "lines"),
                      plot.margin = ggplot2::unit(c(0.1, 0, 0, 0), "cm"))+
-      ecodata::theme_title()
+      ecodata24::theme_title()
 
   }
 
@@ -155,7 +155,7 @@ plot_chl_pp <- function(shadedRegion = NULL,
                  size = setup$hline.size,
                  alpha = setup$hline.alpha,
                  linetype = setup$hline.lty)+
-      ecodata::theme_facet() +
+      ecodata24::theme_facet() +
       ggplot2::theme(strip.text=ggplot2::element_text(hjust=0))
 
     p <- "This data set is currently under review"
@@ -189,9 +189,9 @@ plot_chl_pp <- function(shadedRegion = NULL,
                                   labels = c("Jan.","Mar.","May","July","Oct.","Dec."),
                                   expand = c(0.01,0.01)) +
       ggplot2::scale_color_manual(values = c("#ef8a62","#2c7fb8","#a1d99b"))+
-      ecodata::theme_ts()+
-      ecodata::theme_title()+
-      ecodata::theme_facet()+
+      ecodata24::theme_ts()+
+      ecodata24::theme_title()+
+      ecodata24::theme_facet()+
       ggplot2::theme(panel.spacing = ggplot2::unit(1, "lines"))
   }
 
@@ -214,7 +214,7 @@ attr(plot_chl_pp,"year") <- NULL
 
   # Paste commented original plot code chunk for reference
   # NE monthly example
-  # out_pp <- ecodata::chl_pp %>%
+  # out_pp <- ecodata24::chl_pp %>%
   #   dplyr::filter(EPU %in% c("GOM","GB"),
   #                 stringr::str_detect(Var, "MONTHLY_PPD_MEDIAN")) %>%
   #   tidyr::separate(.,Time, into = c("Cat", "Time2"), sep = "_") %>%
@@ -231,7 +231,7 @@ attr(plot_chl_pp,"year") <- NULL
   #   dplyr::filter(EPU == "GOM") %>%
   #   ggplot2::ggplot() +
   #   # geom_gls(aes(x = Year, y = Value, group = Month))+
-  #   #ecodata::geom_lm(aes(x = Year, y = Value, group = Month))+
+  #   #ecodata24::geom_lm(aes(x = Year, y = Value, group = Month))+
   #   ggplot2::geom_point(aes(x = Year, y = Value, group = Month)) +
   #   ggplot2::geom_line(aes(x = Year, y = Value, group = Month)) +
   #   ggplot2::scale_x_discrete(name = "", breaks = seq(min(out_pp$Year),max(out_pp$Year),10)) +
@@ -243,17 +243,17 @@ attr(plot_chl_pp,"year") <- NULL
   #                       size = hline.size,
   #                       alpha = hline.alpha,
   #                       linetype = hline.lty)+
-  #   ecodata::theme_facet() +
+  #   ecodata24::theme_facet() +
   #   ggplot2::theme(axis.text.x = element_text(angle=45, hjust = 1),
   #                  panel.spacing = unit(1, "lines"),
   #                  plot.margin = unit(c(0.1, 0, 0, 0), "cm"))+
-  #   ecodata::theme_title()
+  #   ecodata24::theme_title()
   #
   # pp_cci_gb <-out_pp %>%
   #   dplyr::filter(EPU == "GB") %>%
   #   ggplot2::ggplot() +
   #   # geom_gls(aes(x = Year, y = Value, group = Month))+
-  #   #ecodata::geom_lm(aes(x = Year, y = Value, group = Month))+
+  #   #ecodata24::geom_lm(aes(x = Year, y = Value, group = Month))+
   #   ggplot2::geom_point(aes(x = Year, y = Value, group = Month)) +
   #   ggplot2::geom_line(aes(x = Year, y = Value, group = Month)) +
   #   ggplot2::scale_x_discrete(name = "", breaks = seq(min(out_pp$Year),max(out_pp$Year),10)) +
@@ -265,11 +265,11 @@ attr(plot_chl_pp,"year") <- NULL
   #                       size = hline.size,
   #                       alpha = hline.alpha,
   #                       linetype = hline.lty)+
-  #   ecodata::theme_facet() +
+  #   ecodata24::theme_facet() +
   #   ggplot2::theme(axis.text.x = element_text(angle=45, hjust = 1),
   #                  panel.spacing = unit(1, "lines"),
   #                  plot.margin = unit(c(0.1, 0, 0, 0), "cm"))+
-  #   ecodata::theme_title()
+  #   ecodata24::theme_title()
   #
   # pp_cci_gb + pp_cci_gom + patchwork::plot_layout(ncol = 1)  #
   #

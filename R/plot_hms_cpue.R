@@ -19,7 +19,7 @@ plot_hms_cpue <- function(shadedRegion = NULL,
                           varName = "shark") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -29,13 +29,13 @@ plot_hms_cpue <- function(shadedRegion = NULL,
     filterEPUs <- c("GB", "GOM")
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
   varabbr <- stringr::str_to_upper(varName)
 
-  sp_cat<- ecodata::hms_category
+  sp_cat<- ecodata24::hms_category
 
-  hms <- ecodata::hms_cpue |>
+  hms <- ecodata24::hms_cpue |>
     dplyr::filter(stringr::str_detect(Var, varabbr)) #|>
 
   if(varName=="shark"){
@@ -48,7 +48,7 @@ plot_hms_cpue <- function(shadedRegion = NULL,
     dplyr::filter(!Var == "NA")
   }
 
-  #if(varName=="all") hms <- ecodata::hms_cpue
+  #if(varName=="all") hms <- ecodata24::hms_cpue
 
   # code for generating plot object p
   # ensure that setup list objects are called as setup$...
@@ -66,8 +66,8 @@ plot_hms_cpue <- function(shadedRegion = NULL,
     #{if(varName=="all") ggplot2::facet_wrap(~Var, scales = "free")}+
     ggplot2::ggtitle(paste("HMS POP", varabbr, "CPUE"))+
     ggplot2::ylab("Number per Haul")+
-    ecodata::theme_ts()+
-    ecodata::theme_title()
+    ecodata24::theme_ts()+
+    ecodata24::theme_title()
 
    # # optional code for New England specific (2 panel) formatting
    #  if (report == "NewEngland") {
@@ -86,8 +86,8 @@ attr(plot_hms_cpue,"report") <- c("MidAtlantic","NewEngland")
 
   # Paste commented original plot code chunk for reference
   # one code chunk: macrofauna_MAB.Rmd-hms-cpue-sharks.R
-  # sp_cat<- ecodata::hms_category
-  # ecodata::hms_cpue %>%
+  # sp_cat<- ecodata24::hms_category
+  # ecodata24::hms_cpue %>%
   #   filter(stringr::str_detect(Var, "SHARK")) %>%
   #   rename(COMMON_POP = Var) %>%
   #   left_join(sp_cat) %>%
@@ -105,8 +105,8 @@ attr(plot_hms_cpue,"report") <- c("MidAtlantic","NewEngland")
   #   #ggplot2::facet_wrap(~Var, scales = "free")+
   #   ggplot2::ggtitle("HMS POP SHARK CPUE")+
   #   ggplot2::ylab("Number per Haul")+
-  #   ecodata::theme_ts()+
-  #   ecodata::theme_title()
+  #   ecodata24::theme_ts()+
+  #   ecodata24::theme_title()
   #
   #
 

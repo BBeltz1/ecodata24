@@ -1,5 +1,5 @@
 
-MAB<- ecodata::habitat_diversity %>% 
+MAB<- ecodata24::habitat_diversity %>% 
   dplyr::filter(Var == "Shannon",
                 EPU == "MAB") %>% 
   dplyr::group_by(EPU) %>% 
@@ -7,7 +7,7 @@ MAB<- ecodata::habitat_diversity %>%
                 Time = as.numeric(Time),
                 hline = mean(Value))
 
-ecodata::habitat_diversity %>% 
+ecodata24::habitat_diversity %>% 
   dplyr::filter(Var == "Shannon") %>% 
   dplyr::group_by(EPU) %>% 
   dplyr::mutate(mean = as.numeric(Value),
@@ -29,7 +29,7 @@ ecodata::habitat_diversity %>%
   #          size = hline.size,
   #          alpha = hline.alpha,
   #          linetype = hline.lty)+
-  ecodata::theme_ts()+
+  ecodata24::theme_ts()+
   ggplot2::theme(strip.text=element_text(hjust=0,
                                 face = "italic"))+
-  ecodata::theme_title()
+  ecodata24::theme_title()

@@ -1,8 +1,8 @@
 
-bt1<- ecodata::bottom_temp_comp %>%
+bt1<- ecodata24::bottom_temp_comp %>%
   dplyr::filter(Time >= 2021) %>% 
   dplyr::mutate(Source = c("PSY"))
-bt_ts<- ecodata::bottom_temp_comp %>% 
+bt_ts<- ecodata24::bottom_temp_comp %>% 
   dplyr::filter(Time <= 2020) %>% 
   dplyr::mutate(Source = c("Glorys")) %>% 
   rbind(bt1) %>% 
@@ -24,7 +24,7 @@ bt_ts %>%  dplyr::filter(EPU == "MAB",
   ggplot2::geom_line() +
   ggplot2::geom_point(aes(shape = Source)) +
   ggplot2::scale_shape_manual(values = c(16, 1))+
-  ecodata::geom_gls(alpha = trend.alpha + 0.25) +
+  ecodata24::geom_gls(alpha = trend.alpha + 0.25) +
   ggplot2::ylab("BT anomaly (C)")+
   ggplot2::xlab(element_blank())+
   ggplot2::facet_wrap(~season, ncol = 2)+
@@ -33,4 +33,4 @@ bt_ts %>%  dplyr::filter(EPU == "MAB",
                       size = hline.size,
                       alpha = hline.alpha,
                       linetype = hline.lty) +
-  ecodata::theme_ts()
+  ecodata24::theme_ts()

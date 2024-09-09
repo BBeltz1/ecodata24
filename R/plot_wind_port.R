@@ -15,7 +15,7 @@ plot_wind_port <- function(shadedRegion = NULL,
                               report="MidAtlantic") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -25,9 +25,9 @@ plot_wind_port <- function(shadedRegion = NULL,
     filterEPUs <- c("NE")
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
-   fix <- ecodata::wind_port |>
+   fix <- ecodata24::wind_port |>
      dplyr::filter(EPU %in% filterEPUs)
    fix <- tidyr::pivot_wider(fix,names_from = Var, values_from = Value) |>
      dplyr::mutate(ordering = MaxVal,
@@ -46,7 +46,7 @@ plot_wind_port <- function(shadedRegion = NULL,
                                                 "WEA Revenue")))
 
    # add EJ port symbols
-   df.symbol <- ecodata::wind_port |>
+   df.symbol <- ecodata24::wind_port |>
      dplyr::filter(EPU %in% filterEPUs,
                    !Var %in% c("MaxVal", "TOT_MAX",
                                "perc_MIN", "perc_MAX")) |>
@@ -77,7 +77,7 @@ plot_wind_port <- function(shadedRegion = NULL,
     ggplot2::ggtitle(paste0(report,": Port Revenue from Wind Energy Area"))+
     ggplot2::xlab(expression("Port Revenue (%)"))+
     ggplot2::ylab(ggplot2::element_blank())+
-    ecodata::theme_ts()
+    ecodata24::theme_ts()
 
    # optional code for New England specific (2 panel) formatting
     # if (report == "NewEngland") {

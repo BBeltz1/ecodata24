@@ -21,7 +21,7 @@ plot_spawn_timing <- function(shadedRegion = NULL,
                               varName = "Resting") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -34,9 +34,9 @@ plot_spawn_timing <- function(shadedRegion = NULL,
     filterEPUs <- c("GB", "GOM")
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
-  fix<- ecodata::spawn_timing |>
+  fix<- ecodata24::spawn_timing |>
     tidyr::separate(Var, into = c("Season", "Species", "Stock", "Var"), sep = "_")
 
   # code for generating plot object p
@@ -61,14 +61,14 @@ plot_spawn_timing <- function(shadedRegion = NULL,
                       ymin = -Inf, ymax = Inf) +
     ggplot2::geom_point() +
     ggplot2::geom_line() +
-    ecodata::geom_gls() +
+    ecodata24::geom_gls() +
     #ggplot2::geom_bar(stat="identity", position="fill") +
     #ggplot2::scale_fill_manual(values = mat.col) +
     ggplot2::ylab(filt$Units) +
     ggplot2::facet_wrap(Species~Stock,
                         labeller = ggplot2::label_wrap_gen(multi_line=FALSE)) +
-    ecodata::theme_facet() +
-    ecodata::theme_title()
+    ecodata24::theme_facet() +
+    ecodata24::theme_title()
 
   if(varName %in% c("Resting", "Ripe", "Spent", "Developing")){
     p <- p + ggplot2::ggtitle(paste(stringr::str_to_sentence(filt$Season), varName, "Spawning Stage"))

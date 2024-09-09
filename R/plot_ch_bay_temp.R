@@ -15,7 +15,7 @@ plot_ch_bay_temp <- function(shadedRegion = NULL,
                               report="MidAtlantic") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # # which report? this may be bypassed for some figures
@@ -25,9 +25,9 @@ plot_ch_bay_temp <- function(shadedRegion = NULL,
   #   filterEPUs <- c("GB", "GOM")
   # }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
-   CBtemp <- ecodata::ch_bay_temp |>
+   CBtemp <- ecodata24::ch_bay_temp |>
      tidyr::pivot_wider(names_from = Var, values_from = Value) |>
      dplyr::mutate(YearLTAC = (YearLTA - 32)*(5/9),
                    minLTAC = (minLTA - 32)*(5/9),
@@ -49,8 +49,8 @@ plot_ch_bay_temp <- function(shadedRegion = NULL,
     ggplot2::ggtitle("Chesapeake Bay Temperature") +
     ggplot2::theme(legend.position = "bottom",
                    legend.title = ggplot2::element_blank())+
-    ecodata::theme_ts()+
-    ecodata::theme_title()
+    ecodata24::theme_ts()+
+    ecodata24::theme_title()
 
    # # optional code for New England specific (2 panel) formatting
    #  if (report == "NewEngland") {
@@ -68,7 +68,7 @@ attr(plot_ch_bay_temp,"report") <- c("MidAtlantic","NewEngland")
 
   # Paste commented original plot code chunk for reference
   # MAB only
-  # ecodata::ch_bay_temp %>%
+  # ecodata24::ch_bay_temp %>%
   #   tidyr::pivot_wider(names_from = Var, values_from = Value) %>%
   #   dplyr::mutate(YearLTAC = (YearLTA - 32)*(5/9),
   #                 minLTAC = (minLTA - 32)*(5/9),
@@ -83,7 +83,7 @@ attr(plot_ch_bay_temp,"report") <- c("MidAtlantic","NewEngland")
   #   ggplot2::ggtitle("Chesapeake Bay Temperature") +
   #   ggplot2::theme(legend.position = "bottom",
   #                  legend.title = element_blank())+
-  #   ecodata::theme_ts()+
-  #   ecodata::theme_title()  #
+  #   ecodata24::theme_ts()+
+  #   ecodata24::theme_title()  #
   #
 

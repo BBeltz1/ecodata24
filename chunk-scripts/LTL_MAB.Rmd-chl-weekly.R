@@ -1,6 +1,6 @@
 
 interp_chl_pp <- function(epu, year = 2022, Variable){
-  out <- ecodata::chl_pp %>% 
+  out <- ecodata24::chl_pp %>% 
     dplyr::filter(stringr::str_detect(Var,Variable),
            EPU == epu) %>% 
     tidyr::separate(.,Time, into = c("Cat", "Time2"), sep = "_") %>% 
@@ -9,7 +9,7 @@ interp_chl_pp <- function(epu, year = 2022, Variable){
     dplyr::group_by(EPU) %>% 
     dplyr::mutate(Time = 1:length(Year))
   
-  ltm_out <- ecodata::chl_pp %>% 
+  ltm_out <- ecodata24::chl_pp %>% 
     dplyr::filter(stringr::str_detect(Var,Variable),
            EPU == epu) %>% 
     tidyr::separate(.,Time, into = c("Cat", "Time2"), sep = "_") %>% 
@@ -54,8 +54,8 @@ MAB_chl_weekly <- ggplot2::ggplot(data = MAB_chl) +
                    labels = c("Jan.","Mar.","May","July","Oct.","Dec."),
                    expand = c(0.01,0.01)) +
   ggplot2::scale_color_manual(values = c("#ef8a62","#2c7fb8","#a1d99b"))+
-  ecodata::theme_ts()+
-  ecodata::theme_title()
+  ecodata24::theme_ts()+
+  ecodata24::theme_title()
 
 MAB_pp <- interp_chl_pp(epu = "MAB", Variable =  "WEEKLY_PPD_MEDIAN")
 #MAB_early<- MAB_pp %>% filter(Week.x <=26)
@@ -82,7 +82,7 @@ MAB_pp_weekly <- ggplot2::ggplot(data = MAB_pp) +
                    labels = c("Jan.","Mar.","May","July","Oct.","Dec."),
                    expand = c(0.01,0.01)) +
   ggplot2::scale_color_manual(values = c("#ef8a62","#2c7fb8","#a1d99b"))+
-  ecodata::theme_ts()+
-  ecodata::theme_title()
+  ecodata24::theme_ts()+
+  ecodata24::theme_title()
 
 MAB_chl_weekly + MAB_pp_weekly + plot_layout(ncol = 1)

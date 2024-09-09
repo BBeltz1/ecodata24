@@ -1,8 +1,8 @@
 
-cp1<- ecodata::cold_pool %>%
+cp1<- ecodata24::cold_pool %>%
   dplyr::filter(Time >= 2021) %>% 
   dplyr::mutate(Source = c("PSY"))
-cpts<- ecodata::cold_pool %>% 
+cpts<- ecodata24::cold_pool %>% 
   dplyr::filter(Time <= 2020) %>% 
   dplyr::mutate(Source = c("Glorys")) %>% 
   rbind(cp1) 
@@ -29,13 +29,13 @@ cpi<- cpts %>%
   ggplot2::theme(legend.position = "none")+
   # ggplot2::geom_ribbon(aes(x = Time, ymin = Lower, ymax = Upper), fill = "gray")+
   ggplot2::geom_hline(aes(yintercept = 0))+
-  ecodata::geom_gls(aes(x = Time, y = Value))+
-  #ecodata::geom_lm(aes(x = Time, y = Value, group = Var))+
+  ecodata24::geom_gls(aes(x = Time, y = Value))+
+  #ecodata24::geom_lm(aes(x = Time, y = Value, group = Var))+
   ggplot2::ylab("Cold Pool Index (x(-1))") +
   #ggplot2::scale_y_reverse()+
   ggplot2::xlab("")+
-  ecodata::theme_ts()+
-  ecodata::theme_title()+
+  ecodata24::theme_ts()+
+  ecodata24::theme_title()+
   ggplot2::annotate("text", x = 1990, y = 2.2, label = "Colder", size = 4,colour = "blue")+
    ggplot2::annotate("text", x = 1990, y = -2.5, label = "Warmer",size = 4, colour = "red")
 
@@ -59,12 +59,12 @@ ei<- cpts %>%
   ggplot2::scale_shape_manual(values = c(16, 1))+
   ggplot2::theme(legend.position = "none")+
   ggplot2::geom_hline(aes(yintercept = 0))+
-  ecodata::geom_gls(aes(x = Time, y = Value))+
-  #ecodata::geom_lm(aes(x = Time, y = Value, group = Var))+
+  ecodata24::geom_gls(aes(x = Time, y = Value))+
+  #ecodata24::geom_lm(aes(x = Time, y = Value, group = Var))+
   ggplot2::ylab("Spatial Extent Index") +
   ggplot2::xlab("")+
-  ecodata::theme_ts()+
-  ecodata::theme_title()+
+  ecodata24::theme_ts()+
+  ecodata24::theme_title()+
   # ggplot2::annotate("segment", x = 2025, xend = 2025, y = 0.05, yend = 50,
   #          colour = "blue", size = 0.70, arrow = arrow())+
   # ggplot2::annotate("segment", x = 2025, xend = 2025, y = -0.05, yend = -250,
@@ -90,12 +90,12 @@ pi<- cpts %>%
   ggplot2::scale_shape_manual(values = c(16, 1))+
   ggplot2::theme(legend.position = "none")+
   ggplot2::geom_hline(aes(yintercept = 0))+
-  ecodata::geom_gls(aes(x = Time, y = Value))+
-  #ecodata::geom_lm(aes(x = Time, y = Value, group = Var))+
+  ecodata24::geom_gls(aes(x = Time, y = Value))+
+  #ecodata24::geom_lm(aes(x = Time, y = Value, group = Var))+
   ggplot2::ylab("Persistence Index") +
   ggplot2::xlab("")+
-  ecodata::theme_ts()+
-  ecodata::theme_title()+
+  ecodata24::theme_ts()+
+  ecodata24::theme_title()+
   # ggplot2::annotate("segment", x = 2025, xend = 2025, y = 0.01, yend = 0.6,
   #          colour = "blue", size = 0.70, arrow = arrow())+
   # ggplot2::annotate("segment", x = 2025, xend = 2025, y = -0.05, yend = -1.6,

@@ -17,7 +17,7 @@ plot_hms_stock_status <- function(shadedRegion = NULL,
                               report="MidAtlantic") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -27,7 +27,7 @@ plot_hms_stock_status <- function(shadedRegion = NULL,
     filterEPUs <- c("GB", "GOM")
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
   y.max <- 5
   x.max <- 2
@@ -39,7 +39,7 @@ plot_hms_stock_status <- function(shadedRegion = NULL,
 
 
 
-  stock_status<-ecodata::hms_stock_status |>
+  stock_status<-ecodata24::hms_stock_status |>
     #tidyr::spread(.,Var,Value) |>
     tidyr::separate(Var, c("species_abr", "spp", "Var"), ":") |>
     tidyr::pivot_wider(names_from = Var, values_from = Value) |>
@@ -91,7 +91,7 @@ plot_hms_stock_status <- function(shadedRegion = NULL,
     ggplot2::xlab(expression(~B/B[msy])) +
     ggplot2::ylab(expression(~F/F[msy])) +
     ggplot2::guides(color = FALSE) +
-    ecodata::theme_ts()
+    ecodata24::theme_ts()
 
 
   return(list(p=p,unknown=unknown))
@@ -108,7 +108,7 @@ attr(plot_hms_stock_status,"report") <- c("MidAtlantic","NewEngland")
   #
   #
   #
-  # stock_status<-ecodata::hms_stock_status %>%
+  # stock_status<-ecodata24::hms_stock_status %>%
   #   #tidyr::spread(.,Var,Value) %>%
   #   tidyr::separate(Var, c("species_abr", "spp", "Var"), ":") %>%
   #   tidyr::pivot_wider(names_from = Var, values_from = Value) %>%
@@ -149,6 +149,6 @@ attr(plot_hms_stock_status,"report") <- c("MidAtlantic","NewEngland")
   #   ggplot2::xlab(expression(~B/B[msy])) +
   #   ggplot2::ylab(expression(~F/F[msy])) +
   #   ggplot2::guides(color = FALSE) +
-  #   ecodata::theme_ts()
+  #   ecodata24::theme_ts()
   #
 

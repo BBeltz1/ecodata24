@@ -16,7 +16,7 @@ plot_bottom_temp_comp <- function(shadedRegion=NULL,
                                   varName="seasonal",
                                   EPU="MAB") {
 
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   if (report == "MidAtlantic") {
@@ -29,7 +29,7 @@ plot_bottom_temp_comp <- function(shadedRegion=NULL,
   }
 
 
-  fix <- ecodata::bottom_temp_comp |>
+  fix <- ecodata24::bottom_temp_comp |>
     dplyr::filter((Source == "GLORYS" & Time >= 1993) | (Source == "ROMS") ) |>
     dplyr::filter(EPU %in% filterEPUs) |>
     dplyr::mutate(Time = as.numeric(Time),
@@ -38,7 +38,7 @@ plot_bottom_temp_comp <- function(shadedRegion=NULL,
 
   fix$Var <- factor(fix$Var, levels= c("Winter","Spring","Summer","Fall", "Annual"))
 
-  psy <- ecodata::bottom_temp_comp |>
+  psy <- ecodata24::bottom_temp_comp |>
     dplyr::filter(Source == "PSY") |>
     dplyr::filter(EPU %in% filterEPUs) |>
     dplyr::mutate(Time = as.numeric(Time),
@@ -98,13 +98,13 @@ plot_bottom_temp_comp <- function(shadedRegion=NULL,
     #                     linetype = hline.lty) +
     #ggplot2::facet_wrap(Var ~., ncol = 2, scales = "free_y")+
     ggplot2::facet_wrap(~Var, scales="free_y") +
-    ecodata::theme_ts() +
-    ecodata::theme_facet() +
-    ecodata::geom_gls() +
-    #ecodata::geom_lm(aes(x = Time, y = Value))+
+    ecodata24::theme_ts() +
+    ecodata24::theme_facet() +
+    ecodata24::geom_gls() +
+    #ecodata24::geom_lm(aes(x = Time, y = Value))+
     # ggplot2::theme(strip.text=ggplot2::element_text(hjust=0),
     #                plot.title = ggplot2::element_text(size = 12))+
-    ecodata::theme_title()
+    ecodata24::theme_title()
 
 
   return(p)

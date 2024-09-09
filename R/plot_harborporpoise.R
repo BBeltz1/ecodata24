@@ -16,7 +16,7 @@ plot_harborporpoise <- function(shadedRegion = NULL,
                               report="MidAtlantic") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -26,9 +26,9 @@ plot_harborporpoise <- function(shadedRegion = NULL,
     filterEPUs <- c("GB", "GOM")
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
-  ribbon<- ecodata::harborporpoise |>
+  ribbon<- ecodata24::harborporpoise |>
     tidyr::pivot_wider(names_from = Var, values_from = Value)
 
   # code for generating plot object p
@@ -36,7 +36,7 @@ plot_harborporpoise <- function(shadedRegion = NULL,
   # e.g. fill = setup$shade.fill, alpha = setup$shade.alpha,
   # xmin = setup$x.shade.min , xmax = setup$x.shade.max
   #
-  p <- ecodata::harborporpoise |>
+  p <- ecodata24::harborporpoise |>
     dplyr::filter(Var %in% c("pbr", "totalest5y", "totalest1y")) |>
     ggplot2::ggplot()+
     #Highlight last ten years
@@ -59,8 +59,8 @@ plot_harborporpoise <- function(shadedRegion = NULL,
       legend.background = ggplot2::element_rect(
         colour = "transparent", fill = "transparent"))+
     #ggplot2::guides(color = "none")+
-    ecodata::theme_ts()+
-    ecodata::theme_title()
+    ecodata24::theme_ts()+
+    ecodata24::theme_title()
 
     return(p)
 }
@@ -68,10 +68,10 @@ plot_harborporpoise <- function(shadedRegion = NULL,
 attr(plot_harborporpoise,"report") <- c("MidAtlantic","NewEngland")
 
   # Paste commented original plot code chunk for reference
-  # ribbon<- ecodata::harborporpoise %>%
+  # ribbon<- ecodata24::harborporpoise %>%
   #   tidyr::pivot_wider(names_from = Var, values_from = Value)
   #
-  # ecodata::harborporpoise %>%
+  # ecodata24::harborporpoise %>%
   #   dplyr::filter(Var %in% c("pbr", "totalest5y", "totalest1y")) %>%
   #   ggplot2::ggplot()+
   #   ggplot2::geom_line(aes(x = Time, y = Value, linetype = Var, color = Var))+
@@ -88,8 +88,8 @@ attr(plot_harborporpoise,"report") <- c("MidAtlantic","NewEngland")
   #     legend.background = element_rect(
   #       colour = "transparent", fill = "transparent"))+
   #   guides(color = FALSE)+
-  #   ecodata::theme_ts()+
-  #   ecodata::theme_title()
+  #   ecodata24::theme_ts()+
+  #   ecodata24::theme_title()
   #
   #
 

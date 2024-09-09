@@ -1,6 +1,6 @@
 #' plot diversity of survey data
 #'
-#' plots ecodata::survey_shannon
+#' plots ecodata24::survey_shannon
 #'
 #' @param shadedRegion Numeric vector. Years denoting the shaded region of the plot (most recent 10)
 #' @param report Character string. Which SOE report ("MidAtlantic", "NewEngland")
@@ -15,7 +15,7 @@ plot_survey_shannon <- function(shadedRegion = NULL,
                               report="MidAtlantic") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -25,10 +25,10 @@ plot_survey_shannon <- function(shadedRegion = NULL,
     filterEPUs <- c("GB", "GOM")
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
 
-   fix <- tidyr::separate(ecodata::survey_shannon,col = Var,into = c("indicator","season"),sep="-") |>
+   fix <- tidyr::separate(ecodata24::survey_shannon,col = Var,into = c("indicator","season"),sep="-") |>
      dplyr::mutate(indicator = trimws(indicator),
                    season = trimws(season)) |>
      dplyr::filter(EPU %in% filterEPUs)
@@ -45,11 +45,11 @@ plot_survey_shannon <- function(shadedRegion = NULL,
      ggplot2::ylab("Shannon")+
      ggplot2::xlab(ggplot2::element_blank())+
      ggplot2::facet_wrap(.~EPU)+
-     ecodata::geom_gls()+
+     ecodata24::geom_gls()+
      #ggplot2::scale_color_discrete(name = "Season", labels = c("Fall", "Spring"))+
-     ecodata::theme_ts()+
-     ecodata::theme_facet()+
-     ecodata::theme_title()
+     ecodata24::theme_ts()+
+     ecodata24::theme_facet()+
+     ecodata24::theme_title()
 
   # code for generating plot object p
   # ensure that setup list objects are called as setup$...

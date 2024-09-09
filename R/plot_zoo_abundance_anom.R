@@ -16,7 +16,7 @@ plot_zoo_abundance_anom <- function(shadedRegion = NULL,
                               varName = "copepod") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -37,9 +37,9 @@ plot_zoo_abundance_anom <- function(shadedRegion = NULL,
     stop("Please select either 'copepod' or 'euphausid'")
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
-   fix<- ecodata::zoo_abundance_anom |>
+   fix<- ecodata24::zoo_abundance_anom |>
      dplyr::mutate(Var = dplyr::recode(Var,LgCopepods = "large-bodied",
                                        SmCopepods = "small-bodied")) |>
      dplyr::filter(EPU %in% filterEPUs,
@@ -68,12 +68,12 @@ plot_zoo_abundance_anom <- function(shadedRegion = NULL,
                alpha = setup$hline.alpha,
                linetype = setup$hline.lty)+
     ggplot2::facet_wrap(~EPU~Var)+
-    ecodata::geom_gls() +
-    ecodata::theme_ts()+
-    ecodata::theme_facet()+
+    ecodata24::geom_gls() +
+    ecodata24::theme_ts()+
+    ecodata24::theme_facet()+
     ggplot2::theme(legend.title = ggplot2::element_blank(),
                    legend.position = "none") +
-    ecodata::theme_title()
+    ecodata24::theme_title()
 
    # optional code for New England specific (2 panel) formatting
     # if (report == "NewEngland") {

@@ -18,7 +18,7 @@ plot_abc_acl <- function(shadedRegion = NULL,
                          plottype = "Stacked") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # which report? this may be bypassed for some figures
@@ -28,7 +28,7 @@ plot_abc_acl <- function(shadedRegion = NULL,
     filterEPUs <- c("NE") #unique to abc_acl dataset
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
 
   # EPUs are Councils here, MAB = MAFMC and NE = NEFMC
@@ -39,7 +39,7 @@ plot_abc_acl <- function(shadedRegion = NULL,
 
   if (report == "MidAtlantic") {
 
-    ABCs <- ecodata::abc_acl |>
+    ABCs <- ecodata24::abc_acl |>
       dplyr::filter(EPU == filterEPUs) |>
       tidyr::separate(col = Var, into = c("Fishery", "Var"), sep = "_") |>
       dplyr::filter(Var == "Quota") |>
@@ -49,7 +49,7 @@ plot_abc_acl <- function(shadedRegion = NULL,
       dplyr::summarise(Value = sum(Value),
                        .groups="drop")
 
-    CatchABC <- ecodata::abc_acl |>
+    CatchABC <- ecodata24::abc_acl |>
       unique()|>
       dplyr::filter(EPU == filterEPUs) |>
       tidyr::separate(col = Var, into = c("Fishery", "Var"), sep = "_") |>
@@ -73,7 +73,7 @@ plot_abc_acl <- function(shadedRegion = NULL,
 
   if (report == "NewEngland") {
 
-    ABCs <- ecodata::abc_acl |>
+    ABCs <- ecodata24::abc_acl |>
       dplyr::filter(EPU == filterEPUs) |>
       tidyr::separate(col = Var, into = c("FMP", "Fishery", "Var"), sep = "_") |>
       dplyr::filter(Var == "ABC") |>
@@ -81,7 +81,7 @@ plot_abc_acl <- function(shadedRegion = NULL,
       dplyr::summarise(Value = sum(Value),
                        .groups="drop")
 
-    CatchABC <- ecodata::abc_acl |>
+    CatchABC <- ecodata24::abc_acl |>
       unique()|>
       dplyr::filter(EPU == filterEPUs) |>
       tidyr::separate(col = Var, into = c("FMP", "Fishery", "Var"), sep = "_") |>
@@ -119,9 +119,9 @@ plot_abc_acl <- function(shadedRegion = NULL,
                      legend.key.height = ggplot2::unit(2, "mm"))+
       ggplot2::ylab("ABC or ACL, metric tons")+
       ggplot2::xlab(ggplot2::element_blank())+
-      ecodata::theme_ts()+
+      ecodata24::theme_ts()+
       ggplot2::guides(fill=ggplot2::guide_legend(ncol=1))+
-      ecodata::theme_title()
+      ecodata24::theme_title()
 
     return(p)
 
@@ -141,8 +141,8 @@ plot_abc_acl <- function(shadedRegion = NULL,
       ggplot2::ylab(expression("Catch / ABC or ACL"))+
       ggplot2::theme(legend.title = ggplot2::element_blank())+
       ggplot2::xlab(ggplot2::element_blank())+
-      ecodata::theme_ts()+
-      ecodata::theme_title()
+      ecodata24::theme_ts()+
+      ecodata24::theme_title()
 
     return(p)
   }
@@ -156,8 +156,8 @@ attr(plot_abc_acl,"plottype") <- c("Stacked","Catch")
 # Paste commented original plot code chunk for reference
 #
 # Stacked
-# mean<- ecodata::abc_acl %>%
-# ecodata::abc_acl |>
+# mean<- ecodata24::abc_acl %>%
+# ecodata24::abc_acl |>
 #   dplyr::filter(EPU == "MAB") |>
 #   tidyr::separate(col = Var, into = c("Fishery", "Var"), sep = "_") |>
 #   dplyr::filter(Var == "Quota") |>
@@ -172,12 +172,12 @@ attr(plot_abc_acl,"plottype") <- c("Stacked","Catch")
 #                  legend.key.height = ggplot2::unit(2, "mm"))+
 #   ggplot2::ylab("ABC or ACL")+
 #   ggplot2::xlab(ggplot2::element_blank())+
-#   ecodata::theme_ts()+
+#   ecodata24::theme_ts()+
 #   ggplot2::guides(fill=ggplot2::guide_legend(ncol=2))+
-#   ecodata::theme_title()
+#   ecodata24::theme_title()
 #
 # Catch
-# mean<- ecodata::abc_acl %>%
+# mean<- ecodata24::abc_acl %>%
 #   dplyr::filter(EPU == "MAB") %>%
 #   tidyr::separate(col = Var, into = c("FMP", "Var"), sep = "_") %>%
 #   tidyr::pivot_wider(names_from = Var, values_from = Value)  %>%
@@ -192,7 +192,7 @@ attr(plot_abc_acl,"plottype") <- c("Stacked","Catch")
 #   dplyr::ungroup() %>%
 #   dplyr::mutate(Time = as.numeric(Time))
 #
-# ecodata::abc_acl %>%
+# ecodata24::abc_acl %>%
 #   dplyr::filter(EPU == "MAB") %>%
 #   tidyr::separate(col = Var, into = c("FMP", "Var"), sep = "_") %>%
 #   tidyr::pivot_wider(names_from = Var, values_from = Value)  %>%
@@ -212,5 +212,5 @@ attr(plot_abc_acl,"plottype") <- c("Stacked","Catch")
 #   ggplot2::ylab(expression("Catch / ABC or ACL"))+
 #   ggplot2::theme(legend.title = element_blank())+
 #   ggplot2::xlab(element_blank())+
-#   ecodata::theme_ts()+
-#   ecodata::theme_title()
+#   ecodata24::theme_ts()+
+#   ecodata24::theme_title()

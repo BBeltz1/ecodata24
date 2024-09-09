@@ -17,7 +17,7 @@ plot_cold_pool <- function(shadedRegion = NULL,
                            varName = NULL) {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # # which report? this may be bypassed for some figures
@@ -27,15 +27,15 @@ plot_cold_pool <- function(shadedRegion = NULL,
   #   filterEPUs <- c("GB", "GOM")
   # }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
   # if no PSYyear given by user, default to the last 2 years in dataset
-  #PSYyear <- ifelse(is.null(PSYyear), max(ecodata::cold_pool$Time)-1, PSYyear)
+  #PSYyear <- ifelse(is.null(PSYyear), max(ecodata24::cold_pool$Time)-1, PSYyear)
 
   # new dataset has both GLORYS and PSY for comparison
   # preferentially use GLORYS where duplicates exist
 
-  cpdup <- ecodata::cold_pool |>
+  cpdup <- ecodata24::cold_pool |>
     dplyr::group_by(Time, Var, EPU) |>
     dplyr::mutate(duplicated = dplyr::n()>1) |>
     dplyr::ungroup()
@@ -71,13 +71,13 @@ plot_cold_pool <- function(shadedRegion = NULL,
     ggplot2::theme(legend.position = "none")+
     # ggplot2::geom_ribbon(aes(x = Time, ymin = Lower, ymax = Upper), fill = "gray")+
     ggplot2::geom_hline(ggplot2::aes(yintercept = 0))+
-    ecodata::geom_gls(ggplot2::aes(x = Time, y = Value))+
-    #ecodata::geom_lm(aes(x = Time, y = Value, group = Var))+
+    ecodata24::geom_gls(ggplot2::aes(x = Time, y = Value))+
+    #ecodata24::geom_lm(aes(x = Time, y = Value, group = Var))+
     ggplot2::ylab("Cold Pool Index (x(-1))") +
     #ggplot2::scale_y_reverse()+
     ggplot2::xlab("")+
-    ecodata::theme_ts()+
-    ecodata::theme_title()+
+    ecodata24::theme_ts()+
+    ecodata24::theme_title()+
     ggplot2::annotate("text", x = 1990, y = 2.2, label = "Colder", size = 4,colour = "blue")+
     ggplot2::annotate("text", x = 1990, y = -2.5, label = "Warmer",size = 4, colour = "red")
 
@@ -101,12 +101,12 @@ plot_cold_pool <- function(shadedRegion = NULL,
     ggplot2::scale_shape_manual(values = c(16, 1))+
     ggplot2::theme(legend.position = "none")+
     ggplot2::geom_hline(ggplot2::aes(yintercept = 0))+
-    ecodata::geom_gls(ggplot2::aes(x = Time, y = Value))+
-    #ecodata::geom_lm(aes(x = Time, y = Value, group = Var))+
+    ecodata24::geom_gls(ggplot2::aes(x = Time, y = Value))+
+    #ecodata24::geom_lm(aes(x = Time, y = Value, group = Var))+
     ggplot2::ylab("Spatial Extent Index") +
     ggplot2::xlab("")+
-    ecodata::theme_ts()+
-    ecodata::theme_title()+
+    ecodata24::theme_ts()+
+    ecodata24::theme_title()+
     # ggplot2::annotate("segment", x = 2025, xend = 2025, y = 0.05, yend = 50,
     #          colour = "blue", size = 0.70, arrow = arrow())+
     # ggplot2::annotate("segment", x = 2025, xend = 2025, y = -0.05, yend = -250,
@@ -132,12 +132,12 @@ plot_cold_pool <- function(shadedRegion = NULL,
     ggplot2::scale_shape_manual(values = c(16, 1))+
     ggplot2::theme(legend.position = "none")+
     ggplot2::geom_hline(ggplot2::aes(yintercept = 0))+
-    ecodata::geom_gls(ggplot2::aes(x = Time, y = Value))+
-    #ecodata::geom_lm(aes(x = Time, y = Value, group = Var))+
+    ecodata24::geom_gls(ggplot2::aes(x = Time, y = Value))+
+    #ecodata24::geom_lm(aes(x = Time, y = Value, group = Var))+
     ggplot2::ylab("Persistence Index") +
     ggplot2::xlab("")+
-    ecodata::theme_ts()+
-    ecodata::theme_title()+
+    ecodata24::theme_ts()+
+    ecodata24::theme_title()+
     # ggplot2::annotate("segment", x = 2025, xend = 2025, y = 0.01, yend = 0.6,
     #          colour = "blue", size = 0.70, arrow = arrow())+
     # ggplot2::annotate("segment", x = 2025, xend = 2025, y = -0.05, yend = -1.6,
@@ -168,10 +168,10 @@ attr(plot_cold_pool,"varName") <- c("cold_pool", "persistence","extent")
 
 
   # Paste commented original plot code chunk for reference
-  # cp1<- ecodata::cold_pool %>%
+  # cp1<- ecodata24::cold_pool %>%
   #   dplyr::filter(Time >= 2021) %>%
   #   dplyr::mutate(Source = c("PSY"))
-  # cpts<- ecodata::cold_pool %>%
+  # cpts<- ecodata24::cold_pool %>%
   #   dplyr::filter(Time <= 2020) %>%
   #   dplyr::mutate(Source = c("Glorys")) %>%
   #   rbind(cp1)
@@ -198,13 +198,13 @@ attr(plot_cold_pool,"varName") <- c("cold_pool", "persistence","extent")
   #   ggplot2::theme(legend.position = "none")+
   #   # ggplot2::geom_ribbon(aes(x = Time, ymin = Lower, ymax = Upper), fill = "gray")+
   #   ggplot2::geom_hline(aes(yintercept = 0))+
-  #   ecodata::geom_gls(aes(x = Time, y = Value))+
-  #   #ecodata::geom_lm(aes(x = Time, y = Value, group = Var))+
+  #   ecodata24::geom_gls(aes(x = Time, y = Value))+
+  #   #ecodata24::geom_lm(aes(x = Time, y = Value, group = Var))+
   #   ggplot2::ylab("Cold Pool Index (x(-1))") +
   #   #ggplot2::scale_y_reverse()+
   #   ggplot2::xlab("")+
-  #   ecodata::theme_ts()+
-  #   ecodata::theme_title()+
+  #   ecodata24::theme_ts()+
+  #   ecodata24::theme_title()+
   #   ggplot2::annotate("text", x = 1990, y = 2.2, label = "Colder", size = 4,colour = "blue")+
   #   ggplot2::annotate("text", x = 1990, y = -2.5, label = "Warmer",size = 4, colour = "red")
   #
@@ -228,12 +228,12 @@ attr(plot_cold_pool,"varName") <- c("cold_pool", "persistence","extent")
   #   ggplot2::scale_shape_manual(values = c(16, 1))+
   #   ggplot2::theme(legend.position = "none")+
   #   ggplot2::geom_hline(aes(yintercept = 0))+
-  #   ecodata::geom_gls(aes(x = Time, y = Value))+
-  #   #ecodata::geom_lm(aes(x = Time, y = Value, group = Var))+
+  #   ecodata24::geom_gls(aes(x = Time, y = Value))+
+  #   #ecodata24::geom_lm(aes(x = Time, y = Value, group = Var))+
   #   ggplot2::ylab("Spatial Extent Index") +
   #   ggplot2::xlab("")+
-  #   ecodata::theme_ts()+
-  #   ecodata::theme_title()+
+  #   ecodata24::theme_ts()+
+  #   ecodata24::theme_title()+
   #   # ggplot2::annotate("segment", x = 2025, xend = 2025, y = 0.05, yend = 50,
   #   #          colour = "blue", size = 0.70, arrow = arrow())+
   #   # ggplot2::annotate("segment", x = 2025, xend = 2025, y = -0.05, yend = -250,
@@ -259,12 +259,12 @@ attr(plot_cold_pool,"varName") <- c("cold_pool", "persistence","extent")
   #   ggplot2::scale_shape_manual(values = c(16, 1))+
   #   ggplot2::theme(legend.position = "none")+
   #   ggplot2::geom_hline(aes(yintercept = 0))+
-  #   ecodata::geom_gls(aes(x = Time, y = Value))+
-  #   #ecodata::geom_lm(aes(x = Time, y = Value, group = Var))+
+  #   ecodata24::geom_gls(aes(x = Time, y = Value))+
+  #   #ecodata24::geom_lm(aes(x = Time, y = Value, group = Var))+
   #   ggplot2::ylab("Persistence Index") +
   #   ggplot2::xlab("")+
-  #   ecodata::theme_ts()+
-  #   ecodata::theme_title()+
+  #   ecodata24::theme_ts()+
+  #   ecodata24::theme_title()+
   #   # ggplot2::annotate("segment", x = 2025, xend = 2025, y = 0.01, yend = 0.6,
   #   #          colour = "blue", size = 0.70, arrow = arrow())+
   #   # ggplot2::annotate("segment", x = 2025, xend = 2025, y = -0.05, yend = -1.6,

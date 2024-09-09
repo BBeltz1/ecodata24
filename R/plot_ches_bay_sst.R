@@ -17,7 +17,7 @@ plot_ches_bay_sst <- function(shadedRegion = NULL,
                               scale = "celsius") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # adjust map window for Chesapeake Bay
@@ -37,9 +37,9 @@ plot_ches_bay_sst <- function(shadedRegion = NULL,
     filterEPUs <- c("GB", "GOM")
   }
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
-  sst<- ecodata::ches_bay_sst
+  sst<- ecodata24::ches_bay_sst
   sst$Var <- factor(sst$Var, levels = c("Winter",
                                               "Spring",
                                               "Summer",
@@ -73,7 +73,7 @@ plot_ches_bay_sst <- function(shadedRegion = NULL,
   #
   p <- sst |>
     ggplot2::ggplot() +
-    ggplot2::geom_sf(data = ecodata::coast, size = setup$map.lwd) +
+    ggplot2::geom_sf(data = ecodata24::coast, size = setup$map.lwd) +
     ggplot2::coord_sf(crs = setup$crs, xlim = setup$xlims, ylim = setup$ylims) +
 
     ggplot2::geom_tile(data = sst, ggplot2::aes(x = Latitude, y = Longitude,fill = Value)) +
@@ -86,7 +86,7 @@ plot_ches_bay_sst <- function(shadedRegion = NULL,
                                   breaks = breaks,
                                   midpoint = midpoint) +
     ggplot2::facet_wrap(Var~.) +
-    ecodata::theme_map() +
+    ecodata24::theme_map() +
     ggplot2::ggtitle("Chesapeake Bay SST anomaly") +
     ggplot2::xlab(ggplot2::element_blank()) +
     ggplot2::ylab(ggplot2::element_blank()) +
@@ -99,7 +99,7 @@ plot_ches_bay_sst <- function(shadedRegion = NULL,
                    strip.text= ggplot2::element_text(hjust=0),
                    axis.text = ggplot2::element_text(size = 6),
                    axis.title.y = ggplot2::element_text(angle = 90) )+
-    ecodata::theme_title()
+    ecodata24::theme_title()
 
    # # optional code for New England specific (2 panel) formatting
    #  if (report == "NewEngland") {
@@ -120,7 +120,7 @@ plot_ches_bay_sst <- function(shadedRegion = NULL,
 attr(plot_ches_bay_sst,"report") <- c("MidAtlantic","NewEngland")
 
   # Paste commented original plot code chunk for reference
-  # ecodata::dataset |>
+  # ecodata24::dataset |>
   #   dplyr::filter(Var %in% c("..."),
   #                 EPU == "...") |>
   #   ... more dataset wrangling as necessary |>
@@ -134,8 +134,8 @@ attr(plot_ches_bay_sst,"report") <- c("MidAtlantic","NewEngland")
   #   ggplot2::ggtitle("Title")+
   #   ggplot2::ylab(expression("Y label"))+
   #   ggplot2::xlab(element_blank())+
-  #   ecodata::geom_gls()+
-  #   ecodata::theme_ts()+
-  #   ecodata::theme_title()
+  #   ecodata24::geom_gls()+
+  #   ecodata24::theme_ts()+
+  #   ecodata24::theme_title()
   #
   #

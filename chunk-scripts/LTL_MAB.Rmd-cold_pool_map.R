@@ -1,14 +1,14 @@
 
-cpsf26<- ecodata::cold_pool_sf %>% 
+cpsf26<- ecodata24::cold_pool_sf %>% 
   mutate(Time = c(1:26)) %>% 
   filter(Time == 26)
-cpsf<- ecodata::cold_pool_sf %>% 
+cpsf<- ecodata24::cold_pool_sf %>% 
   mutate(Time = c(1:26)) %>% 
   filter(!Time == 26)
-cpmin <- ecodata::cold_pool_sf %>% 
+cpmin <- ecodata24::cold_pool_sf %>% 
   mutate(Time = c(1:26)) %>% 
   filter(Time == 20)
-cpmax <- ecodata::cold_pool_sf %>% 
+cpmax <- ecodata24::cold_pool_sf %>% 
   mutate(Time = c(1:26)) %>% 
   filter(Time == 13)
 
@@ -26,7 +26,7 @@ ylims <- c(ymin, ymax)
 cp_map <- 
   ggplot2::ggplot() +
   #ggplot2::geom_tile(data =hw, aes(x = Longitude, y = Latitude,fill = Value)) +
-  ggplot2::geom_sf(data = ecodata::coast, size = map.lwd) +
+  ggplot2::geom_sf(data = ecodata24::coast, size = map.lwd) +
   ggplot2::geom_sf(data = cpsf, alpha = 0.1)  +
   ggplot2::geom_sf(data = cpsf26, fill = "transparent", color = "black", size = 1)+
    ggplot2::geom_sf(data = cpmax, fill = "transparent", color = "blue", size = 0.5)+
@@ -39,7 +39,7 @@ cp_map <-
   #                     limits = c(-4,4)) +
   
   #facet_wrap(Season~.) +
-  ecodata::theme_map() +
+  ecodata24::theme_map() +
   ggplot2::ggtitle("Cold Pool Area") +
   ggplot2::xlab("Longitude") +
   ggplot2::ylab("Latitude") +
@@ -50,7 +50,7 @@ cp_map <-
         strip.text=element_text(hjust=0),
         axis.text = element_text(size = 8),
         axis.title.y = element_text(angle = 90))+
-  ecodata::theme_title()
+  ecodata24::theme_title()
 
 
 annotation_custom2 <- function (grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf) 
@@ -62,7 +62,7 @@ annotation_custom2 <- function (grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax
                                           ymin = ymin, ymax = ymax))
 }
 
-area<- ecodata::cold_pool_sf %>%
+area<- ecodata24::cold_pool_sf %>%
   mutate(Time = c(1993:2018)) 
 area2<- data.frame(Area = st_area(area))%>% 
   mutate(Time = c(1993:2018)) %>% 
@@ -83,7 +83,7 @@ area_ts <-  ggplot2::ggplotGrob(area2 %>%
                                       ggplot2::ggtitle("")+
                                       ggplot2::ylab((expression("Area (m"^2*")"))) +
                                       ggplot2::xlab("")+
-                                      ecodata::theme_ts()+
+                                      ecodata24::theme_ts()+
                               ggplot2::theme(
                                    axis.text.y = element_text(size = 6),
                                    axis.text.x = element_text(size = 6),

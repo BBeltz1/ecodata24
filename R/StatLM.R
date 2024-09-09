@@ -1,4 +1,4 @@
-#' StatLM Stat protto based on ecodata StatGLS
+#' StatLM Stat protto based on ecodata24 StatGLS
 #' Need to pass arguments
 #'
 #' nBootSamples, pVal significance, number datapoints

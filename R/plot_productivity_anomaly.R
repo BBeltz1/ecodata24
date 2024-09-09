@@ -19,7 +19,7 @@ plot_productivity_anomaly <- function(shadedRegion = NULL,
                                       EPU = "MAB") {
 
   # generate plot setup list (same for all plot functions)
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   # this should be added to plot_setip
@@ -44,11 +44,11 @@ plot_productivity_anomaly <- function(shadedRegion = NULL,
   }
 
 
-  # optional code to wrangle ecodata object prior to plotting
+  # optional code to wrangle ecodata24 object prior to plotting
   # e.g., calculate mean, max or other needed values to join below
 
   if (varName == "assessment") {
-    fix<- ecodata::productivity_anomaly |>
+    fix<- ecodata24::productivity_anomaly |>
       tidyr::separate(Var, into = c("Stock", "Var"), sep = "-")  |>
       dplyr::filter(EPU == filterEPUs,
                     Var == "rs_anom") |>
@@ -59,7 +59,7 @@ plot_productivity_anomaly <- function(shadedRegion = NULL,
                     Total = ifelse(Count < max(Count), NA, Total)) |>
       dplyr::filter(!is.na(Total))
 
-    prod<- ecodata::productivity_anomaly |>
+    prod<- ecodata24::productivity_anomaly |>
       tidyr::separate(Var, into = c("Stock", "Var"), sep = "-")  |>
       dplyr::filter(EPU == filterEPUs,
                     Var == "rs_anom") |>
@@ -85,7 +85,7 @@ plot_productivity_anomaly <- function(shadedRegion = NULL,
       ggplot2::ylab("Recruitment Anomaly") +
       ggplot2::ggtitle(paste0(filterEPUs," Recruitment Anomaly from Stock Assessments")) +
       #ggplot2::guides(fill = guide_legend(ncol = leg_ncol)) +
-      ecodata::theme_ts()+
+      ecodata24::theme_ts()+
       ggplot2::theme(axis.title   = ggplot2::element_text(size = 10),
                      axis.text    = ggplot2::element_text(size = 10),
                      plot.title   = ggplot2::element_text(size = 12),
@@ -96,7 +96,7 @@ plot_productivity_anomaly <- function(shadedRegion = NULL,
   }
 
   if (varName == "anomaly") {
-    bar_dat <- ecodata::productivity_anomaly |>
+    bar_dat <- ecodata24::productivity_anomaly |>
       dplyr::filter(EPU == filterEPUs) |>
       tidyr::separate(Var, into = c("Var", "Survey"), sep = "_")
 
@@ -231,7 +231,7 @@ plot_stackbarcpts_single <- function(YEAR, var2bar,
     ggplot2::ylab(ylab) +
     ggplot2::ggtitle(titl) +
     ggplot2::guides(fill = ggplot2::guide_legend(ncol = leg_ncol)) +
-    ecodata::theme_ts()+
+    ecodata24::theme_ts()+
     ggplot2::theme(axis.title   = ggplot2::element_text(size = 12),
                    axis.text    = ggplot2::element_text(size = 12),
                    plot.title   = ggplot2::element_text(size = 15),

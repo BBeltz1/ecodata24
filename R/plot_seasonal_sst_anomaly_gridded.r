@@ -14,7 +14,7 @@ plot_seasonal_sst_anomaly_gridded <- function(shadedRegion = NULL,
                                               scale = "celsius") {
 
 
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   if (report == "MidAtlantic") {
@@ -41,11 +41,11 @@ plot_seasonal_sst_anomaly_gridded <- function(shadedRegion = NULL,
 
 
   #EPU shapefile
-  ne_epu_sf <- ecodata::epu_sf  |>
+  ne_epu_sf <- ecodata24::epu_sf  |>
     sf::st_as_sf() |>
     dplyr::filter(EPU %in% filterEPUs)
 
-  sst <- ecodata::seasonal_sst_anomaly_gridded |>
+  sst <- ecodata24::seasonal_sst_anomaly_gridded |>
     dplyr::mutate(Season = factor(Season, levels = c("Winter",
                                                      "Spring",
                                                      "Summer",
@@ -81,7 +81,7 @@ plot_seasonal_sst_anomaly_gridded <- function(shadedRegion = NULL,
   p <-
     ggplot2::ggplot() +
     ggplot2::geom_tile(data = sst, ggplot2::aes(x = Longitude, y = Latitude,fill = Value)) +
-    ggplot2::geom_sf(data = ecodata::coast, size = setup$map.lwd) +
+    ggplot2::geom_sf(data = ecodata24::coast, size = setup$map.lwd) +
     ggplot2::geom_sf(data = ne_epu_sf, fill = "transparent", size = setup$map.lwd) +
     ggplot2::scale_fill_gradient2(name = label,
                                   low = scales::muted("blue"),
@@ -93,7 +93,7 @@ plot_seasonal_sst_anomaly_gridded <- function(shadedRegion = NULL,
                                   midpoint = midpoint) +
     ggplot2::coord_sf(xlim = xlims, ylim = ylims) +
     ggplot2::facet_wrap(Season~.) +
-    ecodata::theme_map() +
+    ecodata24::theme_map() +
     ggplot2::ggtitle("SST anomaly") +
     ggplot2::xlab("Longitude") +
     ggplot2::ylab("Latitude") +
@@ -105,7 +105,7 @@ plot_seasonal_sst_anomaly_gridded <- function(shadedRegion = NULL,
                    axis.text = ggplot2::element_text(size = 8),
                    axis.title.y = ggplot2::element_text(angle = 90))+
 
-     ecodata::theme_title()
+     ecodata24::theme_title()
 
 
   return(p)

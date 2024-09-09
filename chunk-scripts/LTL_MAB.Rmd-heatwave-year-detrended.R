@@ -1,5 +1,5 @@
 
-ecodata::heatwave_year %>% 
+ecodata24::heatwave_year %>% 
   filter(EPU == "MAB", 
          stringr::str_detect(t, "2022"), 
          Var == "SurfaceDetrended") %>% 
@@ -17,4 +17,4 @@ ecodata::heatwave_year %>%
   ggplot2::ggtitle("Mid-Atlantic")+
   theme(legend.title = element_blank(),
         legend.position=c(0.2, 0.8))+
-  ecodata::theme_title()
+  ecodata24::theme_title()

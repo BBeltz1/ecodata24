@@ -1,5 +1,5 @@
 
-ecodata::trans_dates %>% 
+ecodata24::trans_dates %>% 
   dplyr::filter(EPU == "MAB", 
                 Var %in% c("sumlen30"), 
                 !Value == "NA") %>% 
@@ -9,11 +9,11 @@ ecodata::trans_dates %>%
       ymin = -Inf, ymax = Inf) +
   geom_point()+
   geom_line()+
-  ecodata::geom_gls() +
+  ecodata24::geom_gls() +
   ggplot2::theme(strip.text=element_text(hjust=0),
                  plot.title = element_text(size = 12))+
-  ecodata::theme_title()+
+  ecodata24::theme_title()+
   ylab("# of Days")+
   xlab(element_blank())+
   ggplot2::ggtitle("Number of Days betwen Spring and Fall Transition Dates")+
-  ecodata::theme_ts()
+  ecodata24::theme_ts()

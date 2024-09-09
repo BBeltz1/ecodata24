@@ -13,7 +13,7 @@ plot_seasonal_oisst_anom <- function(shadedRegion = NULL,
                                      report = "MidAtlantic",
                                      EPU="MAB") {
 
-  setup <- ecodata::plot_setup(shadedRegion = shadedRegion,
+  setup <- ecodata24::plot_setup(shadedRegion = shadedRegion,
                                report=report)
 
   if (report == "MidAtlantic") {
@@ -25,7 +25,7 @@ plot_seasonal_oisst_anom <- function(shadedRegion = NULL,
     filterEPUs <- EPU
   }
 
-  ne_anom <- ecodata::seasonal_oisst_anom |>
+  ne_anom <- ecodata24::seasonal_oisst_anom |>
     dplyr::filter(EPU %in% filterEPUs) |>
     dplyr::mutate(Var = stringr::str_to_title(stringr::str_extract(Var,"Winter|Spring|Summer|Fall"))) |>
     dplyr::mutate(Var = factor(Var, levels= c("Winter","Spring","Summer","Fall")))
@@ -51,12 +51,12 @@ plot_seasonal_oisst_anom <- function(shadedRegion = NULL,
                         alpha = setup$hline.alpha,
                         linetype = setup$hline.lty) +
     ggplot2::facet_wrap(~Var, scales = "free_y")+
-    ecodata::theme_facet() +
-    ecodata::geom_gls() +
-    #ecodata::geom_lm(aes(x = Time, y = Value))+
+    ecodata24::theme_facet() +
+    ecodata24::geom_gls() +
+    #ecodata24::geom_lm(aes(x = Time, y = Value))+
     ggplot2::theme(strip.text=ggplot2::element_text(hjust=0),
                    plot.title = ggplot2::element_text(size = 12))+
-    ecodata::theme_title()
+    ecodata24::theme_title()
 
 
   return(p)

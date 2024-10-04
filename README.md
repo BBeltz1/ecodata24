@@ -1,63 +1,16 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ecodata24 <img src="man/figures/ecodata24_logo.png" align="right" width="120" />
+# ecodata24 <img src="man/figures/ecodata24_logo.png" align="right" width="120"/>
+
+## Warning: This fork is for internal testing purposes ONLY. Please do not use as data are likely outdated or incorrect. Please navigate to the main [ecodata package](https://github.com/NOAA-EDAB/ecodata).
 
 <!-- badges: start -->
 
 [![gitleaks](https://github.com/NOAA-EDAB/ecodata24/actions/workflows/secretScan.yml/badge.svg)](https://github.com/NOAA-EDAB/ecodata24/actions/workflows/secretScan.yml)
 [![gh-pages](https://github.com/NOAA-EDAB/ecodata24/actions/workflows/pkgdown.yml/badge.svg)](https://github.com/NOAA-EDAB/ecodata24/actions/workflows/pkgdown.yml)
+
 <!-- badges: end -->
-
-## Overview
-
-`ecodata24` is an R data package developed by the Ecosystems Dynamics and
-Assessment Branch of the Northeast Fisheries Science Center for use in
-State of the Ecosystem (SOE) reporting. SOE reports are high-level
-overviews of ecosystem indicator status and trends occurring on the
-Northeast Continental Shelf. Unless otherwise stated, data are
-representative of specific Ecological Production Units (EPUs), referring
-to the Mid-Atlantic Bight (MAB), Georges Bank (GB), Gulf of Maine (GOM),
-and Scotian Shelf (SS). SOE reports are developed for US Fishery
-Management Councils (FMCs), and therefore indicator data for Scotian
-Shelf are included when available, but this is not always the case.
-
-### Please consult the [technical documentation](https://noaa-edab.github.io/tech-doc/) of SOE indicators before using data sets.
-
-## State of the Ecosystem cycle
-
-The main branch of this repository contains the data used in the most
-recently published [State of the
-Ecosystem](https://www.fisheries.noaa.gov/new-england-mid-atlantic/ecosystems/state-ecosystem-reports-northeast-us-shelf)
-reports (Mid Atlantic and New England reports). Data for use in the
-following years report can be found on the `dev` branch of the
-repository. Once the reports are written and the cycle ends this data
-will be pulled into the main branch and
-[released](https://github.com/NOAA-EDAB/ecodata24/releases)
-
-## Installation
-
-For the last released complete data set
-
-``` r
-remotes::install_github("noaa-edab/ecodata24",build_vignettes=TRUE)
-```
-
-For data used in the current developing cycle
-
-``` r
-remotes::install_github("noaa-edab/ecodata24@dev",build_vignettes=TRUE)
-```
-
-## Loading data sets
-
-1.  All derived data sets are available once the package has been loaded
-    into the environment. View available data sets using the syntax
-    `ecodata24::...`
-
-<p align="center" width="645">
-<img src="https://raw.githubusercontent.com/NOAA-EDAB/ecodata24/master/ecodata241.gif">
-</p>
 
 ### Legal disclaimer
 
